@@ -24,25 +24,6 @@ from docx.enum.section import WD_ORIENT
 from docx.shared import Cm
 
 
-class VerseInfo:
-    def __init__(self, num_languages):
-        self.languages = [{ 'ref': '', 'text': '' } for _ in range(num_languages)]
-
-    def set_ref(self, ref, lang_index):
-        self.languages[lang_index]['ref'] = ref
-
-    def get_ref(self, lang_index):
-        return self.languages[lang_index]['ref']
-
-    def append_text(self, text, lang_index):
-        if self.languages[lang_index]['text']:
-            text = ' ' + text
-        self.languages[lang_index]['text'] += text
-
-    def get_text(self, lang_index):
-        return self.languages[lang_index]['text']
-
-    
 # Parameter Name constants
 PARAM_INPUT_PATH = 'input_path'
 PARAM_OUTPUT_PATH = 'output_path'
@@ -117,9 +98,9 @@ def get_language_info(file_iter):
     return language_info
 
 
-def import_file(encoding, params):
+def import_file(params):
     # Read the text file and return either a list of lines or verse text
-    with params[PARAM_INPUT_PATH].open(encoding=encoding) as file:
+    with params[PARAM_INPUT_PATH].open(encoding='utf-8-sig') as file:
         file_iter = iter(file)
         language_info = get_language_info(file_iter)
         params[PARAM_LANGUAGE_INFO] = language_info
@@ -133,6 +114,8 @@ def import_file(encoding, params):
             return (lines, None)
         else:
             table_verses = import_verses_for_table(file_iter, params)
+            if params[PARAM_SPLIT_SENTENCES]:
+                table_verses = split_verse_sentences(table_verses)
             return (None, table_verses)
 
 
@@ -140,15 +123,23 @@ def import_verses_for_table(file_iter, params):
     footnote_word = params[PARAM_FOOTNOTE]
     num_languages = len(params[PARAM_LANGUAGE_INFO])
 
+    def new_verse():
+        return [{ 'ref': '', 'text': '' } for _ in range(num_languages)]
+
     verses = []
-    current_verse = VerseInfo(num_languages)
+    current_verse = new_verse()
     current_language = 0
 
     def line_is_for_current_language(line):
-        return (not current_verse.get_ref(current_language)
+        return (not current_verse[current_language]['ref']
                 or line.startswith(footnote_word))
     
-    VERSE_LINE_REGEX = re.compile(r'^(.+? \d+:\d+) ?(.+)?')
+    def append_text(text):
+        if current_verse[current_language]['text']:
+            text = ' ' + text
+        current_verse[current_language]['text'] += text
+    
+    VERSE_LINE_REGEX = re.compile(r'^(.+? \d+:\d+) ?(.*)?')
 
     for line in file_iter:
         # The line ending seems to be inconsistent, so strip all whitespace at the end before doing anything
@@ -163,23 +154,47 @@ def import_verses_for_table(file_iter, params):
             if current_language == num_languages:
                 # Start the next verse
                 verses.append(current_verse)
-                current_verse = VerseInfo(num_languages)
+                current_verse = new_verse()
                 current_language = 0
         
         # Parse the line
         verse_match = VERSE_LINE_REGEX.fullmatch(line)
         if verse_match:
-            current_verse.set_ref(verse_match[1], current_language)
-            current_verse.append_text(verse_match[2], current_language)
+            current_verse[current_language]['ref'] = verse_match[1]
+            append_text(verse_match[2])
         else:
-            current_verse.append_text(line, current_language)
+            append_text(line)
 
     # There may be a last unpushed verse at the end
-    if verses and verses[-1].get_ref(0) != current_verse.get_ref(0):
+    if verses and verses[-1][0]['ref'] != current_verse[0]['ref']:
         verses.append(current_verse)
 
     print(f'Retrieved {len(verses)} verses from "{params[PARAM_INPUT_PATH]}"')
     return verses
+
+
+SENTENCE_REGEX = re.compile(r'([^.?!]+[.?!]\S*) ?')
+def split_verse_sentences(verses):
+    for full_verse in verses:
+        yield full_verse
+        sentences_by_lang = [SENTENCE_REGEX.findall(lang['text']) for lang in full_verse]
+
+        # Some sentences in either language may be combined so it may
+        # not correspond exactly, but an empty line should notify the
+        # user of the issue and not mess up the sentence alignment
+        num_lines = max([len(s) for s in sentences_by_lang])
+        for lang_sentences in sentences_by_lang:
+            lang_sentences.extend([''] * (num_lines - len(lang_sentences)))
+
+        # Add a row for each sentence
+        for line_num in range(num_lines):
+            verse_sentence = []
+            for (lang_index, lang_sentences) in enumerate(sentences_by_lang):
+                verse_sentence.append({
+                    'ref': f'{full_verse[lang_index]["ref"]}:{line_num+1}',
+                    'text': lang_sentences[line_num]
+                })
+            yield verse_sentence
 
 
 def export_table_document(verses, params):
@@ -208,8 +223,12 @@ def export_table_document(verses, params):
         header_row.cells[i].text = col_name
         header_row.cells[i].paragraphs[0].runs[0].font.bold = True
 
+    # Add rows for each verse
     for verse in verses:
-        add_verse_rows(verse, table, params[PARAM_SPLIT_SENTENCES])
+        main_row = table.add_row()
+        main_row.cells[0].text = verse[0]['ref']
+        for (i, lang) in enumerate(verse):
+            main_row.cells[i+1].text = lang['text']
 
     # Set the column widths. Each cell needs to be set individually
     for idx, col in enumerate(table.columns):
@@ -242,32 +261,6 @@ def calculate_columns(params):
         col_widths = [Cm(2.5), Cm(6), Cm(6), Cm(6), Cm(3)]
         
     return (col_names, col_widths)
-
-
-SENTENCE_REGEX = re.compile(r'([^.?!]+[.?!]\S*) ?')
-def add_verse_rows(verse, table, split_sentences):
-    # Always include the whole verse as the first row
-    main_row = table.add_row()
-    main_row.cells[0].text = verse.get_ref(0)
-    for i in range(len(verse.languages)):
-        main_row.cells[i+1].text = verse.get_text(i)
-
-    if split_sentences:
-        lang_sentences = [SENTENCE_REGEX.findall(verse.get_text(i)) for i in range(len(verse.languages))]
-
-        # Some sentences in either language may be combined so it may
-        # not correspond exactly, but an empty line should notify the
-        # user of the issue and not mess up the sentence alignment
-        num_lines = max([len(s) for s in lang_sentences])
-        for sentences in lang_sentences:
-            sentences.extend([''] * (num_lines - len(sentences)))
-
-        # Add a row for each sentence
-        for i in range(num_lines):
-            row = table.add_row()
-            row.cells[0].text = f'{verse.get_ref(0).strip(".")}:{i+1}'
-            for (j, lang) in enumerate(lang_sentences):
-                row.cells[j+1].text = lang[i]
 
 
 def export_simple_document(lines, params):
@@ -303,7 +296,7 @@ def show_error(text):
 if __name__ == "__main__":
     params = get_params()
     if params:
-        (lines, verses) = import_file('utf-8-sig', params)
+        (lines, verses) = import_file(params)
         if lines:
             if export_simple_document(lines, params):
                 print(f'Successfully exported "{params[PARAM_OUTPUT_PATH]}"')
