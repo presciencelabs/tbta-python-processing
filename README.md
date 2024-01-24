@@ -4,18 +4,20 @@ This script takes an exported text file from TBTA and arranges the verses into a
 
 The script is called from the command line with the following arguments:
 
-tbta_export_to_word.py -s -n -p "text_file.txt" "footnote:"
+```tbta_export_to_word.py -s -n -p "text_file.txt" "footnote:"```
 
-The text file path and footnote word are required
+The text file path and footnote word are required, and the flags are optional.
+```-s``` will split each verse into sentences, each line getting its own row.
+```-n``` will include a 'Notes' column on the right. By default it is excluded.
+```-p``` will exports a simple word document with no table. If this flag is set, any other flag argument is ignored.
 
-The txt file to import the verses from must be specified as the last argument.
-Including the argument -s will separate each sentence into its own line.
-By default each whole verse gets its own row.
-Including the argument -n will add a blank 'Notes' column on the right.
-By default it is excluded.
+If no argument flags are set, and there is only one language within the file, the script exports a simple word document with no table.
 
-When splitting sentences, there may be some misalignment between the two
-langauges due to some sentences being combined in one language but not the other, or due to the presence of an implicit sentence. A blank line will alert the user that there is misalignment which will have to be dealt with manually. However, this misalignment will not extend beyond the verse in question.
+The footnote word is the target-language word for the start of a footnote. TBTA puts the target-language footnotes on their own line, so this is used to recognize that line.
+
+When splitting sentences with ```-s```, there may be some misalignment between multiple languages due to some sentences being combined in one language but not the other, or due to the presence of an implicit sentence. A blank line will alert the user that there is misalignment which will have to be dealt with manually. However, this misalignment will not extend beyond the verse in question.
+
+This script should handle any combination of languages within the text file, and any combination of arguments. 
 
 # Development
 
