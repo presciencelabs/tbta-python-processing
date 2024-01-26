@@ -6,10 +6,10 @@ The script is called from the command line with the following arguments:
 
 ```tbta_export_to_word.py -s -n -p "text_file.txt" "footnote:"```
 
-The text file path and footnote word are required, and the flags are optional.
-```-s``` will split each verse into sentences, each line getting its own row.
-```-n``` will include a 'Notes' column on the right. By default it is excluded.
-```-p``` will exports a simple word document with no table. If this flag is set, any other flag argument is ignored.
+- The text file path and footnote word are required, and the flags are optional.
+- ```-s``` will split each verse into sentences, each line getting its own row.
+- ```-n``` will include a 'Notes' column on the right. By default it is excluded.
+- ```-p``` will exports a simple word document with no table. If this flag is set, any other flag argument is ignored.
 
 If no argument flags are set, and there is only one language within the file, the script exports a simple word document with no table.
 

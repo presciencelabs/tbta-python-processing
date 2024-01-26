@@ -38,6 +38,10 @@ LANG_NAME = "name"
 LANG_BOOK_NAME = "book_name"
 LANG_IS_TARGET = "is_target"
 
+# Verse Fields
+VERSE_REF = 'ref'
+VERSE_TEXT = 'text'
+
 def get_params():
     # usage is: tbta_export_to_word.exe -s -n -p "text_file.txt" "footnote:"
     # The text file path and footnote word are required
@@ -124,20 +128,20 @@ def import_verses_for_table(file_iter, params):
     num_languages = len(params[PARAM_LANGUAGE_INFO])
 
     def new_verse():
-        return [{ 'ref': '', 'text': '' } for _ in range(num_languages)]
+        return [{ VERSE_REF: '', VERSE_TEXT: '' } for _ in range(num_languages)]
 
     verses = []
     current_verse = new_verse()
     current_language = 0
 
     def line_is_for_current_language(line):
-        return (not current_verse[current_language]['ref']
+        return (not current_verse[current_language][VERSE_REF]
                 or line.startswith(footnote_word))
     
     def append_text(text):
-        if current_verse[current_language]['text']:
+        if current_verse[current_language][VERSE_TEXT]:
             text = ' ' + text
-        current_verse[current_language]['text'] += text
+        current_verse[current_language][VERSE_TEXT] += text
     
     VERSE_LINE_REGEX = re.compile(r'^(.+? \d+:\d+) ?(.*)?')
 
@@ -160,13 +164,13 @@ def import_verses_for_table(file_iter, params):
         # Parse the line
         verse_match = VERSE_LINE_REGEX.fullmatch(line)
         if verse_match:
-            current_verse[current_language]['ref'] = verse_match[1]
+            current_verse[current_language][VERSE_REF] = verse_match[1]
             append_text(verse_match[2])
         else:
             append_text(line)
 
     # There may be a last unpushed verse at the end
-    if verses and verses[-1][0]['ref'] != current_verse[0]['ref']:
+    if verses and verses[-1][0][VERSE_REF] != current_verse[0][VERSE_REF]:
         verses.append(current_verse)
 
     print(f'Retrieved {len(verses)} verses from "{params[PARAM_INPUT_PATH]}"')
@@ -177,7 +181,7 @@ SENTENCE_REGEX = re.compile(r'([^.?!]+[.?!]\S*) ?')
 def split_verse_sentences(verses):
     for full_verse in verses:
         yield full_verse
-        sentences_by_lang = [SENTENCE_REGEX.findall(lang['text']) for lang in full_verse]
+        sentences_by_lang = [SENTENCE_REGEX.findall(lang[VERSE_TEXT]) for lang in full_verse]
 
         # Some sentences in either language may be combined so it may
         # not correspond exactly, but an empty line should notify the
@@ -191,8 +195,8 @@ def split_verse_sentences(verses):
             verse_sentence = []
             for (lang_index, lang_sentences) in enumerate(sentences_by_lang):
                 verse_sentence.append({
-                    'ref': f'{full_verse[lang_index]["ref"]}:{line_num+1}',
-                    'text': lang_sentences[line_num]
+                    VERSE_REF: f'{full_verse[lang_index][VERSE_REF]}:{line_num+1}',
+                    VERSE_TEXT: lang_sentences[line_num]
                 })
             yield verse_sentence
 
@@ -226,9 +230,9 @@ def export_table_document(verses, params):
     # Add rows for each verse
     for verse in verses:
         main_row = table.add_row()
-        main_row.cells[0].text = verse[0]['ref']
+        main_row.cells[0].text = verse[0][VERSE_REF]
         for (i, lang) in enumerate(verse):
-            main_row.cells[i+1].text = lang['text']
+            main_row.cells[i+1].text = lang[VERSE_TEXT]
 
     # Set the column widths. Each cell needs to be set individually
     for idx, col in enumerate(table.columns):
