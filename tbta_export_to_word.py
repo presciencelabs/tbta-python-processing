@@ -161,7 +161,7 @@ def import_verses_for_table(file_iter, params):
             text = ' ' + text
         current_verse[current_language][VERSE_TEXT] += text
     
-    VERSE_LINE_REGEX = re.compile(r'^(.+? \d+:\d+) ?(.*)?')
+    VERSE_LINE_REGEX = re.compile(r'^([^:]+? \d+:\d+) ?(.*)?')
 
     for line in file_iter:
         # The line ending seems to be inconsistent, so strip all whitespace at the end before doing anything
