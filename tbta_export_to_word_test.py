@@ -11,6 +11,7 @@ def setup_params(file_name, footnote='Footnote:', split=False, notes=False, pub_
         PARAM_SPLIT_SENTENCES: split,
         PARAM_NOTES_COLUMN: notes,
         PARAM_PUB_REFS: pub_refs,
+        PARAM_COMPARE: False,   #TODO test compare functionality
     }
 
 
@@ -57,6 +58,9 @@ class VerseTestCase(unittest.TestCase):
 
     def assertVerseStartswith(self, verse, expected):
         self.assertTrue(verse['text'].startswith(expected), f'{verse["ref"]} not as expected')
+
+    def assertVerseEndswith(self, verse, expected):
+        self.assertTrue(verse['text'].endswith(expected), f'{verse["ref"]} not as expected')
 
     def assertVerseContains(self, verse, expected):
         self.assertTrue(expected in verse['text'], f'{verse["ref"]} not as expected')
@@ -137,6 +141,18 @@ class TestTwoLanguagesSimple(VerseTestCase):
         (target, tagalog) = self.findVerse(verses, 'Eciteri 1:22')
         self.assertVerseEmpty(target)
         self.assertVerseNotEmpty(tagalog)
+
+    def test_footnote_with_verse_ref(self):
+        params = setup_params('Matthew 4 Tagalog and English.txt', footnote='Talababa:')
+        (_, verses) = import_file(params)
+
+        self.assertIsNotNone(verses)
+        self.assertEqual(25, len(verses))
+
+        # footnote with verse reference is handled correctly
+        (english, tagalog) = self.findVerse(verses, 'Matthew 4:6')
+        self.assertVerseEndswith(tagalog, 'Talababa: Makita ninyong Mga Awit 91:11-12.')
+        self.assertVerseEndswith(english, 'Footnote: See Psalms 91:11-12.')
 
 
 class TestThreeLanguagesSimple(VerseTestCase):

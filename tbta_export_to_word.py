@@ -21,7 +21,7 @@ from pathlib import Path
 
 from docx import Document
 from docx.enum.section import WD_ORIENT
-from docx.shared import Cm
+from docx.shared import Cm, RGBColor
 
 
 # Parameter Name constants
@@ -31,25 +31,36 @@ PARAM_FOOTNOTE = 'footnote'
 PARAM_SPLIT_SENTENCES = 'split_sentences'
 PARAM_NOTES_COLUMN = 'add_notes_column'
 PARAM_PUB_REFS = 'publishable_refs'
-PARAM_LANGUAGE_INFO = "languages"
+PARAM_COMPARE = 'compare'
+PARAM_LANGUAGE_INFO = 'languages'
 
 # Language Info Fields
-LANG_NAME = "name"
-LANG_BOOK_NAME = "book_name"
-LANG_IS_TARGET = "is_target"
+LANG_NAME = 'name'
+LANG_BOOK_NAME = 'book_name'
+LANG_IS_TARGET = 'is_target'
 
 # Verse Fields
 VERSE_REF = 'ref'
 VERSE_TEXT = 'text'
 
 def get_params():
-    # usage is: tbta_export_to_word.exe -s -n -p "text_file.txt" "footnote:"
-    # The text file path and footnote word are required
-    if len([a for a in sys.argv if not a.startswith('-')]) < 3:
+    # usage is: tbta_export_to_word.exe -s -n -p -c "text_file.txt" "footnote:"
+    # The text file path is required. The footnote word is required if there is no -c or -p
+    do_compare = '-C' in sys.argv or '-c' in sys.argv
+    do_pub_refs = '-P' in sys.argv or '-p' in sys.argv
+    do_default = not do_compare and not do_pub_refs
+
+    non_flag_args = [a for a in sys.argv if not a.startswith('-')]
+
+    if do_default and len(non_flag_args) < 3:
         show_error('Please specify a .txt file to import and the Target word for Footnote')
         return None
 
-    file_name = sys.argv[-2]
+    if (do_compare or do_pub_refs) and len(non_flag_args) < 2:
+        show_error('Please specify a .txt file to import')
+        return None
+
+    file_name = non_flag_args[1]
     file_path = Path(file_name).with_suffix('.txt')
     if not file_path.exists():
         show_error(f'Specified File "{file_name}" does not exist...')
@@ -58,10 +69,11 @@ def get_params():
     return {
         PARAM_INPUT_PATH: file_path,
         PARAM_OUTPUT_PATH: file_path.with_name(f'{file_path.stem}.docx'),
-        PARAM_FOOTNOTE: sys.argv[-1],
+        PARAM_FOOTNOTE: non_flag_args[2] if do_default else '',
         PARAM_SPLIT_SENTENCES: '-S' in sys.argv or '-s' in sys.argv,
         PARAM_NOTES_COLUMN: '-N' in sys.argv or '-n' in sys.argv,
-        PARAM_PUB_REFS: '-P' in sys.argv or '-p' in sys.argv,
+        PARAM_PUB_REFS: do_pub_refs,
+        PARAM_COMPARE: do_compare,
     }
 
 
@@ -104,8 +116,14 @@ def get_language_info(file_iter):
 
 def import_file(params):
     # Read the text file and return either a list of lines or verse text
+    # TODO handle utf-16-le again
     with params[PARAM_INPUT_PATH].open(encoding='utf-8-sig') as file:
         file_iter = iter(file)
+
+        if params[PARAM_COMPARE]:
+            table_verses = import_verses_for_compare(file_iter, params)
+            return (None, table_verses)
+
         language_info = get_language_info(file_iter)
         params[PARAM_LANGUAGE_INFO] = language_info
 
@@ -177,6 +195,52 @@ def import_verses_for_table(file_iter, params):
     return verses
 
 
+def import_verses_for_compare(file_iter, params):
+    params[PARAM_LANGUAGE_INFO] = []
+
+    def new_verse():
+        # currently assumes 3 languages (English, Old Target, New Target)
+        return [{ VERSE_REF: '', VERSE_TEXT: '' } for _ in range(3)]
+
+    verses = []
+    current_verse = new_verse()
+    next_language = 0
+    
+    VERSE_REF_REGEX = re.compile(r'(.+? \d+:\d+)')
+    VERSE_TEXT_REGEX = re.compile(r'(.+?):(.*)')
+
+    for line in file_iter:
+        # The line ending seems to be inconsistent, so strip all whitespace at the end before doing anything
+        line = line.strip()
+        if not line:
+            # a blank line separates each verse
+            verses.append(current_verse)
+            current_verse = new_verse()
+            next_language = 0
+            continue
+        
+        ref_match = VERSE_REF_REGEX.fullmatch(line)
+        text_match = VERSE_TEXT_REGEX.fullmatch(line)
+        if ref_match:
+            current_verse[0][VERSE_REF] = ref_match[1]
+
+        elif text_match:
+            lang_name = text_match[1]
+            lang_text = text_match[2]
+            current_verse[next_language][VERSE_TEXT] = lang_text.strip()
+            next_language += 1
+
+            if all([lang[LANG_NAME] != lang_name for lang in params[PARAM_LANGUAGE_INFO]]):
+                params[PARAM_LANGUAGE_INFO].append({ LANG_NAME: lang_name })
+
+    # There may be a last unpushed verse at the end
+    if verses and verses[-1][0][VERSE_REF] != current_verse[0][VERSE_REF]:
+        verses.append(current_verse)
+
+    print(f'Retrieved {len(verses)} verses from "{params[PARAM_INPUT_PATH]}"')
+    return verses
+
+
 SENTENCE_REGEX = re.compile(r'([^.?!]+[.?!]\S*) ?')
 def split_verse_sentences(verses):
     for full_verse in verses:
@@ -232,7 +296,7 @@ def export_table_document(verses, params):
         main_row = table.add_row()
         main_row.cells[0].text = verse[0][VERSE_REF]
         for (i, lang) in enumerate(verse):
-            main_row.cells[i+1].text = lang[VERSE_TEXT]
+            format_verse_text(lang[VERSE_TEXT], main_row.cells[i+1])
 
     # Set the column widths. Each cell needs to be set individually
     for idx, col in enumerate(table.columns):
@@ -240,6 +304,26 @@ def export_table_document(verses, params):
             cell.width = col_widths[idx]
             
     return save_document(doc, params[PARAM_OUTPUT_PATH])
+
+FORMATTING_REGEX = re.compile(r'\[ (.+) \]')
+def format_verse_text(text, table_cell):
+    # For now only expect one occurrence of the red-text format marker
+    format_match = FORMATTING_REGEX.search(text)
+    if not format_match:
+        table_cell.text = text
+        return
+
+    format_start, format_end = format_match.span(0)
+    text_to_format = format_match[1]
+
+    paragraph = table_cell.paragraphs[0]
+    paragraph.add_run(text=' ' + text[:format_start])
+
+    formatted_run = paragraph.add_run(text=text_to_format)
+    formatted_run.bold = True
+    formatted_run.font.color.rgb = RGBColor(0xFF, 0x00, 0x00)
+
+    paragraph.add_run(text=text[format_end:])
 
 
 def calculate_columns(params):
