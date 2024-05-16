@@ -1,26 +1,38 @@
 # Usage
 
-This script takes an exported text file from TBTA and arranges the verses into a Word document table that can then be sent to the MTT. It separates the English and the target language, making sure the corresponding verses and sentences are aligned properly.
+There are three modes of using this script:
+1. Normal
+2. Publishable Refs
+3. Compare
 
-The script is called from the command line with the following arguments:
+## Normal Mode
 
-```tbta_export_to_word.py -s -n -p -c "text_file.txt" "footnote:"```
+In normal mode, this script takes an exported text file from TBTA and arranges the verses into a Word document table that can then be sent to the MTT. It separates the target language from the other languages, making sure the corresponding verses and sentences are aligned properly. For this mode, the script is called from the command line with the following arguments:
 
-- The text file path is required, and the flags are optional. The 'footnote' word not required with ```-p``` or ```-c```, but is required otherwise.
+```tbta_export_to_word.py (-s) (-n) "text_file.txt" "footnote:"```
+
+- The text file path and 'footnote' word are required, and the flags are optional.
 - ```-s``` will split each verse into sentences, each line getting its own row.
 - ```-n``` will include a 'Notes' column on the right. By default it is excluded.
-- ```-p``` will export a simple word document with no table. If this flag is set, any other flag argument is ignored.
-- ```-c``` will export a word document with a table with the text differences highlighted in red.
+- The footnote word is the target-language word for the start of a footnote. TBTA puts the target-language footnotes on their own line, so this is used to recognize that line.
 
 If no argument flags are set, and there is only one language within the file, the script exports a simple word document with no table.
 
-The footnote word is the target-language word for the start of a footnote. TBTA puts the target-language footnotes on their own line, so this is used to recognize that line.
-
 When splitting sentences with ```-s```, there may be some misalignment between multiple languages due to some sentences being combined in one language but not the other, or due to the presence of an implicit sentence. A blank line will alert the user that there is misalignment which will have to be dealt with manually. However, this misalignment will not extend beyond the verse in question.
 
-When doing the comparison using ```-c```, this expects a text file where each verse has 'English', 'Old X' and 'New X' text. The Old and New text are expected to have their differences marked with ```[ ]```, which then gets formatted in bold red text in the word document. See ```test/Ibwe Differences.txt```.
-
 This script should handle any combination of languages within the text file, and any combination of arguments. 
+
+## Publishable Refs
+
+```tbta_export_to_word.py -p "text_file.txt"```
+
+TBTA can export text using verse references that are more standard and thus 'publishable'. The text is taken as-is and put directly into a Word document without any additional formatting or handling.
+
+## Compare
+
+```tbta_export_to_word.py -c "text_file.txt"```
+
+TBTA can export text differences between saved and old versions. The differences are marked with ```[ ]``` (see [this example](test/Ibwe Differences.txt) ). Using this mode will put the text in a table and format the differences in bold red for the benefit of the MTT. It also includes a notes column.
 
 # Development
 
