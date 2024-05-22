@@ -1,5 +1,9 @@
 # Usage
 
+This script takes a text file that was exported from TBTA and puts it in a Word document. This document is more easily sent to and understood by the MTT.
+
+The format of the text file and format of the output Word document depends on the mode of usage, determined by command-line flag arguments.
+
 There are three modes of using this script:
 1. Normal
 2. Publishable Refs
@@ -30,9 +34,9 @@ TBTA can export text using verse references that are more standard and thus 'pub
 
 ## Compare
 
-```tbta_export_to_word.py -c "text_file.txt"```
+```tbta_export_to_word.py -c (-n) "text_file.txt"```
 
-TBTA can export text differences between saved and old versions. The differences are marked with ```[ ]``` (see [this example](test/Ibwe Differences.txt) ). Using this mode will put the text in a table and format the differences in bold red for the benefit of the MTT. It also includes a notes column.
+TBTA can export text differences between saved and old versions. The Old and New text within the text file are compared using [difflib.SequenceMatcher.get_matching_blocks()](https://docs.python.org/3/library/difflib.html#difflib.SequenceMatcher.get_matching_blocks), and the character-by-character differences become formatted in bold red text in the word document. Using this mode will put the text in a table. It can also includes a notes using the `-n` flag.
 
 # Development
 

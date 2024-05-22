@@ -1,23 +1,7 @@
-# This script takes the exported text file from TBTA and arranges the verses
-# into a Word document table that can then be sent to the MTT. It separates the
-# English and the target language, making sure the corresponding verses and
-# sentences are aligned properly.
-#
-# The txt file to import the verses from must be specified as the last argument.
-# Including the argument -s will separate each sentence into its own line.
-#   By default each whole verse gets its own row
-# Including the argument -n will add a blank 'Notes' column on the right.
-#   By default it is excluded.
-#
-# When splitting sentences, there may be some misalignment between the two
-# langauges due to some sentences being combined in one language but not the other,
-# or due to the presence of an implicit sentence. A blank line will alert the
-# user that there is misalignment which will have to be dealt with manually.
-# However, this misalignment will not extend beyond the verse in question.
-
 import sys
 import re
 from pathlib import Path
+from difflib import SequenceMatcher
 
 from docx import Document
 from docx.enum.section import WD_ORIENT
@@ -295,8 +279,12 @@ def export_table_document(verses, params):
     for verse in verses:
         main_row = table.add_row()
         main_row.cells[0].text = verse[0][VERSE_REF]
-        for (i, lang) in enumerate(verse):
-            format_verse_text(lang[VERSE_TEXT], main_row.cells[i+1])
+
+        if params[PARAM_COMPARE]:
+            compare_and_format(verse, main_row)
+        else:
+            for (i, lang) in enumerate(verse):
+                main_row.cells[i+1].text = lang[VERSE_TEXT]
 
     # Set the column widths. Each cell needs to be set individually
     for idx, col in enumerate(table.columns):
@@ -305,25 +293,44 @@ def export_table_document(verses, params):
             
     return save_document(doc, params[PARAM_OUTPUT_PATH])
 
-FORMATTING_REGEX = re.compile(r'\[ (.+) \]')
-def format_verse_text(text, table_cell):
-    # For now only expect one occurrence of the red-text format marker
-    format_match = FORMATTING_REGEX.search(text)
-    if not format_match:
-        table_cell.text = text
-        return
 
-    format_start, format_end = format_match.span(0)
-    text_to_format = format_match[1]
+def compare_and_format(verse, table_row):
+    # The languages are always [English, Old, New]
+    table_row.cells[1].text = verse[0][VERSE_TEXT]
 
+    old_runs, new_runs = compare_text(verse[1][VERSE_TEXT], verse[2][VERSE_TEXT])
+    format_text_runs(old_runs, table_row.cells[2])
+    format_text_runs(new_runs, table_row.cells[3])
+
+
+def compare_text(old, new):
+    old_runs, old_i = [], 0
+    new_runs, new_i = [], 0
+
+    # Refer to https://docs.python.org/3/library/difflib.html#difflib.SequenceMatcher.get_matching_blocks
+
+    for (a, b, n) in SequenceMatcher(None, old, new).get_matching_blocks():
+        if a > old_i:
+            old_runs.append({ 'text': old[old_i:a], 'is_diff': True })
+        old_runs.append({ 'text': old[a:a+n], 'is_diff': False })
+        old_i = a + n
+
+        if b > new_i:
+            new_runs.append({ 'text': new[new_i:b], 'is_diff': True })
+        new_runs.append({ 'text': new[b:b+n], 'is_diff': False })
+        new_i = b + n
+    
+    return (old_runs, new_runs)
+
+
+def format_text_runs(runs, table_cell):
     paragraph = table_cell.paragraphs[0]
-    paragraph.add_run(text=' ' + text[:format_start])
 
-    formatted_run = paragraph.add_run(text=text_to_format)
-    formatted_run.bold = True
-    formatted_run.font.color.rgb = RGBColor(0xFF, 0x00, 0x00)
-
-    paragraph.add_run(text=text[format_end:])
+    for run_data in runs:
+        run = paragraph.add_run(text=run_data['text'])
+        if run_data['is_diff']:
+            run.bold = True
+            run.font.color.rgb = RGBColor(0xFF, 0x00, 0x00)
 
 
 def calculate_columns(params):
@@ -347,7 +354,7 @@ def calculate_columns(params):
         col_widths.extend([Cm(8.5), Cm(8.5), Cm(4)])
     elif len(col_names) == 5:
         col_widths = [Cm(2.5), Cm(6), Cm(6), Cm(6), Cm(3)]
-        
+
     return (col_names, col_widths)
 
 
