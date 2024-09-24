@@ -1,91 +1,70 @@
 import unittest
 from pathlib import Path
-from tbta_export_to_word import *
+from tbta_export_to_table import *
 
-def setup_params(file_name, footnote='Footnote:', split=False, notes=False, pub_refs=False):
+# TODO redo tests
+
+def setup_params(file_name, split=False, notes=False, compare=False):
     file_path = Path('./test/' + file_name)
     return {
         PARAM_INPUT_PATH: file_path,
         PARAM_OUTPUT_PATH: file_path.with_name(f'{file_path.stem}.docx'),
-        PARAM_FOOTNOTE: footnote,
         PARAM_SPLIT_SENTENCES: split,
         PARAM_NOTES_COLUMN: notes,
-        PARAM_PUB_REFS: pub_refs,
-        PARAM_COMPARE: False,   #TODO test compare functionality
+        PARAM_COMPARE: compare,   #TODO test compare functionality
     }
-
-
-class TestOneLanguageSimple(unittest.TestCase):
-
-    def test_only_english(self):
-        params = setup_params('Ruth 1-2 English Only.txt')
-        (lines, _) = import_file(params)
-        self.assertIsNotNone(lines)
-        self.assertEqual(53, len(lines))
-
-    def test_only_target(self):
-        params = setup_params('Esther 1 Target Only.txt')
-        (lines, _) = import_file(params)
-        self.assertIsNotNone(lines)
-        self.assertEqual(27, len(lines))
-
-    def test_only_target_split_sentences(self):
-        params = setup_params('Esther 1 Target Only.txt', split=True)
-        (_, verses) = import_file(params)
-        self.assertIsNotNone(verses)
-        verses = list(verses)
-        self.assertEqual(100, len(verses))
 
 
 class VerseTestCase(unittest.TestCase):
 
-    def findVerse(self, verses, eng_ref):
+    def findVerse(self, verses, ref):
         for verse in verses:
-            if verse[0]['ref'] == eng_ref:
-                return verse
+            if verse[VERSE_REF] == ref:
+                return verse[VERSE_TEXT]
 
-    def assertRefEqual(self, verse, expected):
-        self.assertEqual(expected, verse['ref'])
+    # def assertRefEqual(self, verse, expected):
+    #     self.assertEqual(expected, verse[VERSE_REF])
 
-    def assertVerseEqual(self, verse, expected):
-        self.assertEqual(expected, verse['text'], f'{verse["ref"]} not as expected')
+    def assertVerseEqual(self, text, ref, expected):
+        self.assertEqual(expected, text, f'{ref} not as expected')
 
-    def assertVerseEmpty(self, verse):
-        self.assertEqual('', verse['text'], f'{verse["ref"]} should be empty')
+    def assertVerseEmpty(self, verse, lang_index):
+        self.assertEqual('', verse[VERSE_TEXT][lang_index], f'{verse[VERSE_REF]} should be empty')
 
-    def assertVerseNotEmpty(self, verse):
-        self.assertNotEqual('', verse['text'], f'{verse["ref"]} should not be empty')
+    def assertVerseNotEmpty(self, verse, lang_index):
+        self.assertNotEqual('', verse[VERSE_TEXT][lang_index], f'{verse[VERSE_REF]} should not be empty')
 
-    def assertVerseStartswith(self, verse, expected):
-        self.assertTrue(verse['text'].startswith(expected), f'{verse["ref"]} not as expected')
+    def assertVerseStartswith(self, verse, lang_index, expected):
+        self.assertTrue(verse[VERSE_TEXT][lang_index].startswith(expected), f'{verse[VERSE_REF]} not as expected')
 
-    def assertVerseEndswith(self, verse, expected):
-        self.assertTrue(verse['text'].endswith(expected), f'{verse["ref"]} not as expected')
+    def assertVerseEndswith(self, verse, lang_index, expected):
+        self.assertTrue(verse[VERSE_TEXT][lang_index].endswith(expected), f'{verse[VERSE_REF]} not as expected')
 
-    def assertVerseContains(self, verse, expected):
-        self.assertTrue(expected in verse['text'], f'{verse["ref"]} not as expected')
+    def assertContains(self, text, expected):
+        self.assertTrue(expected in text)
 
 
 class TestTwoLanguagesSimple(VerseTestCase):
 
     def test_all_english_all_target(self):
         params = setup_params('Ruth 1 w English.txt')
-        (_, verses) = import_file(params)
+        (verses, language_names) = import_for_table(params)
+
+        self.assertListEqual(['English', 'Gichuka'], language_names)
 
         self.assertIsNotNone(verses)
         self.assertEqual(22, len(verses))
 
         (_, target) = self.findVerse(verses, 'Ruth 1:1')
-        self.assertRefEqual(target, 'Ruthu 1:1')
-        self.assertVerseStartswith(target, "Title: Erimereki na Naomi kuuma Bethireemu kũthiĩ Moabu. Rĩrĩa aciirithania ma-thaga Iciraeri")
-        self.assertVerseContains(target, 'Footnote')
+        self.assertStartswith(target, "Title: Erimereki na Naomi kuuma Bethireemu kũthiĩ Moabu. Rĩrĩa aciirithania ma-thaga Iciraeri")
+        self.assertContains(target, 'Footnote')
 
-        (english, _) = self.findVerse(verses, 'Ruth 1:10')
-        self.assertVerseEqual(english, "Then Naomi's daughters-in-law said to her, “We'll certainly go to your people with you.”")
+        verse = self.findVerse(verses, 'Ruth 1:10')
+        self.assertVerseEqual(verse, 0, "Then Naomi's daughters-in-law said to her, “We'll certainly go to your people with you.”")
 
     def test_all_english_some_target(self):
         params = setup_params('Genesis 1-2 Ibwe and English.txt')
-        (_, verses) = import_file(params)
+        (_, verses) = import_for_table(params)
 
         self.assertIsNotNone(verses)
         self.assertEqual(56, len(verses))
@@ -97,7 +76,7 @@ class TestTwoLanguagesSimple(VerseTestCase):
 
     def test_some_english_some_target(self):
         params = setup_params('Genesis 1-2 Ibwe and English both missing.txt')
-        (_, verses) = import_file(params)
+        (_, verses) = import_for_table(params)
 
         self.assertIsNotNone(verses)
         self.assertEqual(56, len(verses))
@@ -122,7 +101,7 @@ class TestTwoLanguagesSimple(VerseTestCase):
 
     def test_some_target_some_other(self):
         params = setup_params('Esther 1 w Tagalog.txt')
-        (_, verses) = import_file(params)
+        (_, verses) = import_for_table(params)
 
         self.assertIsNotNone(verses)
         self.assertEqual(22, len(verses))
@@ -144,7 +123,7 @@ class TestTwoLanguagesSimple(VerseTestCase):
 
     def test_footnote_with_verse_ref(self):
         params = setup_params('Matthew 4 Tagalog and English.txt', footnote='Talababa:')
-        (_, verses) = import_file(params)
+        (_, verses) = import_for_table(params)
 
         self.assertIsNotNone(verses)
         self.assertEqual(25, len(verses))
@@ -159,7 +138,7 @@ class TestThreeLanguagesSimple(VerseTestCase):
 
     def test_all_three(self):
         params = setup_params('Esther 1 Triple.txt')
-        (_, verses) = import_file(params)
+        (_, verses) = import_for_table(params)
 
         self.assertIsNotNone(verses)
         self.assertEqual(22, len(verses))
@@ -182,7 +161,7 @@ class TestThreeLanguagesSimple(VerseTestCase):
 
     def test_all_three_missing_some(self):
         params = setup_params('Esther 1 Triple some missing.txt')
-        (_, verses) = import_file(params)
+        (_, verses) = import_for_table(params)
 
         self.assertIsNotNone(verses)
         self.assertEqual(22, len(verses))
@@ -222,7 +201,7 @@ class TestTwoLanguagesSplitSentences(VerseTestCase):
 
     def test_split_none_missing(self):
         params = setup_params('Ruth 1 w English.txt', split=True)
-        (_, verses) = import_file(params)
+        (_, verses) = import_for_table(params)
 
         self.assertIsNotNone(verses)
         verses = list(verses)   # verses is returned as a generator but we need a list here
