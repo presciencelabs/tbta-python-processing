@@ -38,7 +38,7 @@ def export_text(params):
     doc.styles['Normal'].font.name = 'Calibri (Body)'
 
     # TODO handle utf-16-le again?
-    with params[PARAM_INPUT_PATH].open(encoding='utf-8-sig') as file:
+    with params[PARAM_INPUT_PATH].open(encoding='utf-8-sig', newline='\n') as file:
         for line in file:
             doc.add_paragraph(text=line.strip())
 

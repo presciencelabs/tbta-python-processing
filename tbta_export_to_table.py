@@ -61,7 +61,7 @@ def import_text(input_path):
     print(f'Importing text from "{input_path}"')
 
     # TODO handle utf-16-le again?
-    with input_path.open(encoding='utf-8-sig') as file:
+    with input_path.open(encoding='utf-8-sig', newline='\n') as file:
         for line in file:
             # The line ending seems to be inconsistent, so strip all whitespace at the end before doing anything
             line = line.strip()
