@@ -2,6 +2,7 @@ import sys
 from pathlib import Path
 
 from docx import Document
+from docx.enum.text import WD_COLOR_INDEX
 
 # Parameter Name constants
 PARAM_INPUT_PATH = 'input_path'
@@ -40,7 +41,8 @@ def export_text(params):
     # TODO handle utf-16-le again?
     with params[PARAM_INPUT_PATH].open(encoding='utf-8-sig', newline='\n') as file:
         for line in file:
-            doc.add_paragraph(text=line.strip())
+            p = doc.add_paragraph()
+            format_text(line, p)
 
     try:
         doc.save(str(params[PARAM_OUTPUT_PATH]))
@@ -49,6 +51,17 @@ def export_text(params):
     except PermissionError:
         show_error(f'"{params[PARAM_OUTPUT_PATH].name}" is currently open. Please close and try again.')
         return False
+
+
+def format_text(text, paragraph):
+    # Split the text into runs based on asterisks
+    runs = [{ 'text': t, 'highlight': i % 2 == 1 } for i, t in enumerate(text.strip().split('*'))]
+
+    # Format the resulting runs
+    for run_data in runs:
+        run = paragraph.add_run(text=run_data['text'])
+        if run_data['highlight']:
+            run.font.highlight_color = WD_COLOR_INDEX.YELLOW
 
 
 def show_error(text):
