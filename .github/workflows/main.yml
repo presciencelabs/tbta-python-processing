@@ -26,16 +26,16 @@ jobs:
         run: pip install pyinstaller
       
       - name: Create Plain Export Executable
-        run: pyinstaller --onefile --noconsole "tbta-export-to-word/tbta_export_to_word.py"
+        run: pyinstaller --onefile --noconsole "tbta_export_to_word/tbta_export_to_word.py"
       
       - name: Create Table Export Executable
-        run: pyinstaller --onefile --noconsole "tbta-export-to-word/tbta_export_to_table.py"
+        run: pyinstaller --onefile --noconsole "tbta_export_to_word/tbta_export_to_table.py"
       
       - name: Create Missing Concepts Export Executable
-        run: pyinstaller --onefile --noconsole "tbta-missing-concepts-to-word/tbta_missing_concepts_to_word.py"
+        run: pyinstaller --onefile --noconsole "tbta_missing_concepts_to_word/tbta_missing_concepts_to_word.py"
       
       - name: Create Analyze Edits Executable
-        run: pyinstaller --onefile --noconsole "tbta-diff-list/tbta_analyze_edits.py"
+        run: pyinstaller --onefile --noconsole "tbta_diff_list/tbta_analyze_edits.py"
 
       - name: Upload Executables
         uses: actions/upload-artifact@v4
