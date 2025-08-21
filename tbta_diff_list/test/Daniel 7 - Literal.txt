@@ -1,0 +1,67 @@
+﻿\id DAN
+\mt1 Gichuka-Literal
+
+\mt1 Ndanieri
+
+\c 7
+\p
+\s Ndanieri kũrota bwa nyamũ inya.
+\p
+\v 1 Mwakani ũnu wa mbere ũrĩa Bericacari a-rĩ mũthamaki wa Babironi Ndanieri a-rotire. Rĩrĩa Ndanieri a-mamĩte gĩtandani kĩawe, nĩ o-nirue kĩoneki. A-ndĩkire bwa maũntũ marĩa o-nire kĩrotoni kĩu kĩawe.
+\p
+\v 2 Ndanieri a-ndĩkire, <<Nonirue kĩoneki ũtukũ. Nĩ nacũthire na nkĩona nkũngi inya cia ĩgũrũ ikĩrũtha makũmbĩ manene ĩriani rĩega mbere yakwa.
+\p
+\v 3 Nyamũ inya irĩa mbega mũno ikiumĩra kuuma ĩriani. Wa nyamũ ya-rĩ mwanya na nyamũ inu ciĩngĩ.
+\p
+\v 4 Nyamũ ya mbere ye-kari ta cimba na ya-rĩ na mathagu ma rwĩgĩ. Wa nacũthĩte nyamũ ĩnu, mathagu nĩ makũrirwe kuuma kũrĩ yo. Nyamũ ĩnu ĩgĩũkĩrĩrua kuuma nthĩ na yarũngamĩte na magũrũ maĩrĩ ta bũrĩa mũntũ arũngamaga magũrũni maĩrĩ. Meciria ma mũntũ makĩambĩrĩrwa kũnenkerwa nyamũ ĩnu.
+\p
+\v 5 Nkĩona nyamũ ya kaĩrĩ mbere yakwa. Nyamũ ĩnu ye-kari ta nduba. Ĩmamiĩ ĩmwe ya mbarĩ ciayo. Mbarũ ithatũ cia-rĩ kanyuani ka nyamũ ĩnu na gatagatĩ ka magego mayo. Mũntũ ũmwe akĩĩra nyamũ ĩnu atĩrĩ, <<Rũngama ũrĩe mĩĩrĩ mĩngĩ nkinya ũbae!>>
+\p
+\v 6 Ngĩcũtha na nkĩona nyamũ ĩngĩ mbere yakwa. Nyamũ ĩnu ye-kari ta naroco na ya-rĩ na mathagu mana ĩgũrũ rĩa mũgongo wayo. Mathagu ma nyamũ ĩnu ma-rĩ ta mathagu ma gĩcici. Nyamũ ĩnu ya-rĩ na ciongo inya, na wathani wa-mĩnenkerwe nĩ kenda ya-tha.
+\p
+\v 7 Ngĩcũtha kĩonekini gĩakwa ũtukũ na nkĩona nyamũ ya kana mbere yakwa. Nyamũ ĩnu ya-mmakirie. Ya-makirie antũ. Ya-rĩ na binya mũno. Ya-rĩ na magego ma cuma manene. Ya-ringithirie into na ĩkĩrĩa antũ marĩa ya-bithũkĩte. Ya-kinyangire into irĩa ya-thũkirie. Ya-rĩ mwanya na nyamũ inu ciĩngĩ ithatũ. Ya-rĩ na ngoci ĩkũmi.
+\p
+\v 8 Rĩrĩa ne-ciragia bwa ngoci inu, nĩ no-nire rũgoci rũngĩ mbere yakwa. Rũgoci rũu rwa-rĩ rũnini. Rwa-kũrĩrĩre gatĩ ka ngoci inu ciĩngĩ, na ngoci ithatũ gatĩ ka ngoci cia-cinũrirwe. Rwa-rĩ na metho marĩa ma-rĩ ta metho ma mũntũ na rwa-rĩ na kanyua kamwe karĩa ke-tĩĩire.
+\p
+\v 9 Nkĩona itĩ imwe ikĩretwa. Tene na Tene agĩĩkara nthĩ. Nguo cia Tene na Tene cia-rĩ njerũ ta bũrĩa mbarabu ĩrĩ njerũ, na njuĩrĩ ciawe cia-rĩ njerũ ta bũrĩa mbamba ĩrĩ njerũ. Gĩtĩ kĩa Tene na Tene kĩa-thiũrũrũkirwe nĩ mwanki na kĩa-rĩ na magũrũ marĩa ma-bĩcaga.
+\p
+\v 10 Mũburo ũmwe wa mwanki wa-unaga mbere ya Tene na Tene. Antũ magiri na magiri ma-rutagĩra Tene na Tene wĩra, na antũ engĩ mamirioni makĩrũngamaga mbere yawe. Antũ monthe marĩa ma-rĩ kotini me-karire nthĩ. Mbuku ikĩguũrua.
+\p
+\v 11 Nkĩthiĩ na mbere gũcũthĩrĩria rũgoci nĩ ũntũ rũgoci rũnini rwe-tĩĩaga. Nkĩthiĩ na mbere gũcũtha nkinya nyamũ ya kana ya-ũragwa. Mwĩrĩ wa nyamũ ya kana wa-thũkirue na wa-gerirwe mwankini mũnene mũno.
+\p
+\v 12 (Wathani wa-cunirwe kuuma kwa nyamũ inu ciĩngĩ. Ĩndĩ nyamũ inu ithatũ igĩĩtĩkĩrĩrwa ithiĩ na mbere gũtũũra kabinda ka mĩaka ĩtarĩ mĩngĩ.)
+\p
+\v 13 Nĩ nacũthire kĩonekini gĩkĩ gĩakwa ũtukũ na nkĩona mũntũ ũmwe ũrĩa ekari ta mwana wa mũntũ magĩĩca na matu marĩa kũu ĩgũrũ. Mũntũ ũnu acire bakubĩ na Tene na Tene na atongorirue kũrĩ we.
+\p
+\v 14 Wathani, ũkengi, na wathani wanenkerwe mũntũ ũnu. Mĩgongo yonthe na antũ marĩa maaragia nthiomi cionthe yamũthathairie. Ũthamaki wa mũntũ ũnu ũkegua ũrĩ wa bo tene na tene. Ũtĩkarothira na ũtĩthũkua.
+\p
+\v 15 Nĩ na-thĩĩnĩkire. Nĩ na-makirue nĩ maũntũ marĩa no-nire kĩonekini gĩkĩ.
+\p
+\v 16 Nĩ na-thiĩre kũrĩ ũmwe wa antũ marĩa ma-rũngamĩte kũu na nkĩũria mũntũ ũnu bwa ũtaũku wa maũntũ mama. Mũntũ ũnu agĩntaũrĩra ũtaũku wa maũntũ mama.
+\p
+\v 17 Mũntũ ũnu akiuga atĩrĩ, <<Nyamũ inya irĩa mbega mũno nĩ athamaki mana marĩa makagĩa na binya nthĩ.
+\p
+\v 18 Ĩndĩ antũ ma Mwathani marĩa makegua marĩ na ũtheru makaamũkĩra ũthamaki. Mo magatuĩka eene ũthamaki ũnu tene na tene.>>
+\p
+\v 19 Nkĩendaga kũmenya ũtaũku wa nyamũ ya kana. Nyamũ ĩnu ya kana ya-rĩ mwanya na nyamũ inu ciĩngĩ. Ya-mmakirie mũno. Ya-rĩ na magego ma cuma na rũkũnyũ rwa cuma. Ya-ringithirie antũ na ĩkĩrĩa antũ marĩa ya-bithũkĩte. Ya-kinyangire into irĩa ya-thũkirie.
+\p
+\v 20 Na nĩ ne-ndaga kũmenya bwa ngoci ĩkũmi ĩgũrũ rĩa kĩongo kĩa nyamũ ĩnu, na nkĩendaga kũmenya bwa rũgoci rũu rũngĩ rũrĩa rwa-kũrire. Na ngoci ithatũ gatĩ ka ngoci cia-cinũrirwe. Rũgoci rũu rũnini rwa-rĩ rwega tĩ ngoci inu ciĩngĩ. Rwa-rĩ na metho na rwa-rĩ na kanyua kamwe karĩa ke-tĩĩire.
+\p
+\v 21 Wa nacũthĩte rũgoci rũu, nĩ rwarũaga na antũ mau marĩa marĩ na ũtheru na rũgoci rũnini rũkĩmacindaga.
+\p
+\v 22 Ĩndĩ Tene na Tene agĩĩca. A-nĩrĩre atĩ antũ ma Mwathani marĩa makegua marĩ na ũtheru makaamũkĩra ũthamaki. Antũ mau marĩa ma-rĩ na ũtheru nĩ eene ũthamaki.
+\p
+\v 23 Mũntũ ũnu antaũrĩre nyamũ ya kana. Akiuga atĩrĩ, <<Nyamũ ya kana nĩ ũthamaki wa kana ũrĩa ũkegua ũrĩ gũkũ nthĩ. Ũthamaki ũnu ũkegua ũrĩ mwanya na mothamaki mau mangĩ monthe. Ũkoonereria nthĩ yonthe. Ũgakinyanga nthĩ na ũkamĩringithia.
+\p
+\v 24 Ngoci ĩkũmi nĩ athamaki ĩkũmi marĩa magaaca kuuma ũthamaki ũnu. Thuuba ya athamaki mau ĩkũmi gũca, mũthamaki ũngĩ agaaca. Akegua arĩ mwanya na athamaki mau mangĩ na agacinda athamaki mathatũ gatĩ kao.
+\p
+\v 25 Mũthamaki ũnu akauga into cia wĩbia bwa Mwathani na akanyariira antũ ma Mwathani marĩa makegua marĩ na ũtheru. Akageria kũgarũra bĩndĩ na watho. Antũ marĩa makegua marĩ na ũtheru makanenkerwa mũthamaki ũnu kabinda ka???
+\p
+\v 26 Ĩndĩ aciirithania marĩa marĩ kotini magekara nthĩ, na wathani wa mũthamaki ũnu ũgacunwa kuuma kwawe. Na ũkathũkua bururu tene na tene.
+\p
+\v 27 Na wathani a mothamaki monthe rungu rwa ĩgũrũ ũkanenkerwa antũ ma Mwathani marĩa makegua marĩ na ũtheru. Ũthamaki wa Mwathani ũkegua ũrĩ wa bo tene na tene, na athamaki mau monthe makamũthathaia. Na athamaki mau monthe makamwathĩkĩra.>>
+\p
+\v 28 Kĩoneki kĩrĩa Ngai amonirie gĩkĩthira. Nĩ nathĩĩnĩkire mũno na ngĩtangĩka meciria makwa. Ũthiũ wakwa werũbire. Ĩndĩ ntera marĩa mangĩ bwa maũntũ mama.>>
+\p
+
+

@@ -1,0 +1,319 @@
+Gichuka Issues
+ 
+Current Passage: Esther 1:1 - Esther 1:22
+ 
+Concept (Noun): Xerxes-A  'the king in the book of Esther, some English translations use the name Ahasuerus'
+Verse: Esther 1:1 Title: King Xerxes becomes angry with Queen Vashti. This book describes the things that happened during the time when Xerxes was the king. King Xerxes ruled the people who were living in 127 provinces. Those provinces were between India and Cush.
+ 
+Concept (Adjective): angry-B  'to be angry at someone (Mary is angry with John.)'
+Sample Sentence: Mary is angry with John.
+Verse: Esther 1:1 Title: King Xerxes becomes angry with Queen Vashti. This book describes the things that happened during the time when Xerxes was the king. King Xerxes ruled the people who were living in 127 provinces. Those provinces were between India and Cush.
+ 
+Concept (Noun): Vashti-A  'Queen Vashti, in Esther'
+Verse: Esther 1:1 Title: King Xerxes becomes angry with Queen Vashti. This book describes the things that happened during the time when Xerxes was the king. King Xerxes ruled the people who were living in 127 provinces. Those provinces were between India and Cush.
+ 
+Concept (Verb): describe-A  'to describe something to someone'
+Sample Sentence: John described what happened.
+Verse: Esther 1:1 Title: King Xerxes becomes angry with Queen Vashti. This book describes the things that happened during the time when Xerxes was the king. King Xerxes ruled the people who were living in 127 provinces. Those provinces were between India and Cush.
+ 
+Concept (Noun): event-A  'a time when something interesting or significant happens'
+Sample Sentence: John talked about the things that happened to him.
+Verse: Esther 1:1 Title: King Xerxes becomes angry with Queen Vashti. This book describes the things that happened during the time when Xerxes was the king. King Xerxes ruled the people who were living in 127 provinces. Those provinces were between India and Cush.
+ 
+Concept (Adjective): 127-A  'the number'
+Sample Sentence: Mary read 127 books.
+Verse: Esther 1:1 Title: King Xerxes becomes angry with Queen Vashti. This book describes the things that happened during the time when Xerxes was the king. King Xerxes ruled the people who were living in 127 provinces. Those provinces were between India and Cush.
+ 
+Concept (Noun): province-A  'a political entity, like a state'
+Verse: Esther 1:1 Title: King Xerxes becomes angry with Queen Vashti. This book describes the things that happened during the time when Xerxes was the king. King Xerxes ruled the people who were living in 127 provinces. Those provinces were between India and Cush.
+ 
+Concept (Noun): India-A  'the country, India'
+Verse: Esther 1:1 Title: King Xerxes becomes angry with Queen Vashti. This book describes the things that happened during the time when Xerxes was the king. King Xerxes ruled the people who were living in 127 provinces. Those provinces were between India and Cush.
+ 
+Concept (Noun): Cush-A  'a country mentioned in Daniel 11:43'
+Verse: Esther 1:1 Title: King Xerxes becomes angry with Queen Vashti. This book describes the things that happened during the time when Xerxes was the king. King Xerxes ruled the people who were living in 127 provinces. Those provinces were between India and Cush.
+ 
+Concept (Conjunction): at-that-time-A  'at that minute'
+Verse: Esther 1:2 At that time King Xerxes was living in his palace that was in a city named Susa.
+ 
+Concept (Noun): palace-A  'the place where the king lives'
+Verse: Esther 1:2 At that time King Xerxes was living in his palace that was in a city named Susa.
+ 
+Concept (Noun): city-A  'a large town'
+Verse: Esther 1:2 At that time King Xerxes was living in his palace that was in a city named Susa.
+ 
+Concept (Noun): Susa-A  'captital city of King Xerxes, book of Esther'
+Verse: Esther 1:2 At that time King Xerxes was living in his palace that was in a city named Susa.
+ 
+Concept (Verb): invite-A  'to invite someone to do something (The king invited many people to come to the palace.)'
+Verse: Esther 1:3 During the third year when King Xerxes was the king, he invited all of the nobles and all of the officials to come to a feast. The leaders of the army of Persia, the leaders of the army of Media, the princes, and the nobles who were living in Xerxes' provinces came to that feast.
+ 
+Concept (Noun): ruler-A  'someone who has a lot of political power such as a king or queen'
+Verse: Esther 1:3 During the third year when King Xerxes was the king, he invited all of the nobles and all of the officials to come to a feast. The leaders of the army of Persia, the leaders of the army of Media, the princes, and the nobles who were living in Xerxes' provinces came to that feast.
+ 
+Concept (Noun): official-A  'a governement official'
+Verse: Esther 1:3 During the third year when King Xerxes was the king, he invited all of the nobles and all of the officials to come to a feast. The leaders of the army of Persia, the leaders of the army of Media, the princes, and the nobles who were living in Xerxes' provinces came to that feast.
+ 
+Concept (Noun): Persia-A  'the country, Esther 10:2'
+Verse: Esther 1:3 During the third year when King Xerxes was the king, he invited all of the nobles and all of the officials to come to a feast. The leaders of the army of Persia, the leaders of the army of Media, the princes, and the nobles who were living in Xerxes' provinces came to that feast.
+ 
+Concept (Noun): Media-A  'Esther 10:2'
+Verse: Esther 1:3 During the third year when King Xerxes was the king, he invited all of the nobles and all of the officials to come to a feast. The leaders of the army of Persia, the leaders of the army of Media, the princes, and the nobles who were living in Xerxes' provinces came to that feast.
+ 
+Concept (Noun): prince-A  'complex - a king's son'
+Verse: Esther 1:3 During the third year when King Xerxes was the king, he invited all of the nobles and all of the officials to come to a feast. The leaders of the army of Persia, the leaders of the army of Media, the princes, and the nobles who were living in Xerxes' provinces came to that feast.
+ 
+Concept (Adjective): great-A  'to be great, wonderful'
+Verse: Esther 1:4 For 180 days King Xerxes showed the great wealth of his kingdom to all of the people who were at that feast. He also showed those people that he was very great.
+ 
+Concept (Noun): wealth-A  'a great quantity of money or property'
+Verse: Esther 1:4 For 180 days King Xerxes showed the great wealth of his kingdom to all of the people who were at that feast. He also showed those people that he was very great.
+ 
+Concept (Noun): kingdom-A  'the region that a king rules'
+Verse: Esther 1:4 For 180 days King Xerxes showed the great wealth of his kingdom to all of the people who were at that feast. He also showed those people that he was very great.
+ 
+Concept (Adjective): 180-A  'the number'
+Verse: Esther 1:4 For 180 days King Xerxes showed the great wealth of his kingdom to all of the people who were at that feast. He also showed those people that he was very great.
+ 
+Concept (Verb): show-B  'to show someone that something is true or that something happened'
+Verse: Esther 1:4 For 180 days King Xerxes showed the great wealth of his kingdom to all of the people who were at that feast. He also showed those people that he was very great.
+ 
+Concept (Verb): end-A  'a temporal event ends (the feast ends on this day)'
+Verse: Esther 1:5 After that feast ended, King Xerxes invited all of the people who were living in Susa to come to another feast. That feast was for seven days in the garden that was at Xerxes' palace. King Xerxes invited the least important people and the most important people to come to that feast.
+ 
+Concept (Noun): garden-A  'a place where vegetables and fruits are grown'
+Verse: Esther 1:5 After that feast ended, King Xerxes invited all of the people who were living in Susa to come to another feast. That feast was for seven days in the garden that was at Xerxes' palace. King Xerxes invited the least important people and the most important people to come to that feast.
+ 
+Concept (Adjective): important-A  'important attribute'
+Verse: Esther 1:5 After that feast ended, King Xerxes invited all of the people who were living in Susa to come to another feast. That feast was for seven days in the garden that was at Xerxes' palace. King Xerxes invited the least important people and the most important people to come to that feast.
+ 
+Concept (Noun): guest-A  '(LDV) a guest at a house or a party'
+Verse: Esther 1:6 <<Before the guests came to the garden,>> white linen curtains and blue linen curtains were hung there. Those curtains were attached to marble pillars using silver rings, white linen ropes, and purple cloths. Gold couches and silver couches were put in the garden. The garden floor was made of beautiful stones, marble, shells, and valuable gems. Footnote: During feasts people reclined on couches while they ate.
+ 
+Concept (Verb): hang-C  'to hang something somewhere (He hung the towel on the wire.)'
+Verse: Esther 1:6 <<Before the guests came to the garden,>> white linen curtains and blue linen curtains were hung there. Those curtains were attached to marble pillars using silver rings, white linen ropes, and purple cloths. Gold couches and silver couches were put in the garden. The garden floor was made of beautiful stones, marble, shells, and valuable gems. Footnote: During feasts people reclined on couches while they ate.
+ 
+Concept (Adjective): white-A  'the color white'
+Verse: Esther 1:6 <<Before the guests came to the garden,>> white linen curtains and blue linen curtains were hung there. Those curtains were attached to marble pillars using silver rings, white linen ropes, and purple cloths. Gold couches and silver couches were put in the garden. The garden floor was made of beautiful stones, marble, shells, and valuable gems. Footnote: During feasts people reclined on couches while they ate.
+ 
+Concept (Noun): curtain-A  'cloths used for decoration on walls or over windows'
+Verse: Esther 1:6 <<Before the guests came to the garden,>> white linen curtains and blue linen curtains were hung there. Those curtains were attached to marble pillars using silver rings, white linen ropes, and purple cloths. Gold couches and silver couches were put in the garden. The garden floor was made of beautiful stones, marble, shells, and valuable gems. Footnote: During feasts people reclined on couches while they ate.
+ 
+Concept (Noun): linen-A  'complex - high quality cloth made from flax plants'
+Verse: Esther 1:6 <<Before the guests came to the garden,>> white linen curtains and blue linen curtains were hung there. Those curtains were attached to marble pillars using silver rings, white linen ropes, and purple cloths. Gold couches and silver couches were put in the garden. The garden floor was made of beautiful stones, marble, shells, and valuable gems. Footnote: During feasts people reclined on couches while they ate.
+ 
+Concept (Adjective): blue-A  'the color'
+Verse: Esther 1:6 <<Before the guests came to the garden,>> white linen curtains and blue linen curtains were hung there. Those curtains were attached to marble pillars using silver rings, white linen ropes, and purple cloths. Gold couches and silver couches were put in the garden. The garden floor was made of beautiful stones, marble, shells, and valuable gems. Footnote: During feasts people reclined on couches while they ate.
+ 
+Concept (Verb): attach-A  'someone connects something to something else'
+Verse: Esther 1:6 <<Before the guests came to the garden,>> white linen curtains and blue linen curtains were hung there. Those curtains were attached to marble pillars using silver rings, white linen ropes, and purple cloths. Gold couches and silver couches were put in the garden. The garden floor was made of beautiful stones, marble, shells, and valuable gems. Footnote: During feasts people reclined on couches while they ate.
+ 
+Concept (Noun): pillar-A  'a pillar'
+Verse: Esther 1:6 <<Before the guests came to the garden,>> white linen curtains and blue linen curtains were hung there. Those curtains were attached to marble pillars using silver rings, white linen ropes, and purple cloths. Gold couches and silver couches were put in the garden. The garden floor was made of beautiful stones, marble, shells, and valuable gems. Footnote: During feasts people reclined on couches while they ate.
+ 
+Concept (Noun): marble-A  'complex - a type of expensive stone often used in building'
+Verse: Esther 1:6 <<Before the guests came to the garden,>> white linen curtains and blue linen curtains were hung there. Those curtains were attached to marble pillars using silver rings, white linen ropes, and purple cloths. Gold couches and silver couches were put in the garden. The garden floor was made of beautiful stones, marble, shells, and valuable gems. Footnote: During feasts people reclined on couches while they ate.
+ 
+Concept (Noun): ring-A  'a metal ring used to fasten one thing to another thing - not a ring that is worn on a finger'
+Verse: Esther 1:6 <<Before the guests came to the garden,>> white linen curtains and blue linen curtains were hung there. Those curtains were attached to marble pillars using silver rings, white linen ropes, and purple cloths. Gold couches and silver couches were put in the garden. The garden floor was made of beautiful stones, marble, shells, and valuable gems. Footnote: During feasts people reclined on couches while they ate.
+ 
+Concept (Noun): silver-A  'the substance silver'
+Verse: Esther 1:6 <<Before the guests came to the garden,>> white linen curtains and blue linen curtains were hung there. Those curtains were attached to marble pillars using silver rings, white linen ropes, and purple cloths. Gold couches and silver couches were put in the garden. The garden floor was made of beautiful stones, marble, shells, and valuable gems. Footnote: During feasts people reclined on couches while they ate.
+ 
+Concept (Noun): rope-A  'thick string, used to tie things'
+Verse: Esther 1:6 <<Before the guests came to the garden,>> white linen curtains and blue linen curtains were hung there. Those curtains were attached to marble pillars using silver rings, white linen ropes, and purple cloths. Gold couches and silver couches were put in the garden. The garden floor was made of beautiful stones, marble, shells, and valuable gems. Footnote: During feasts people reclined on couches while they ate.
+ 
+Concept (Noun): cloth-B  'a fairly large piece of cloth such as the ones mothers use to wrap their babies'
+Verse: Esther 1:6 <<Before the guests came to the garden,>> white linen curtains and blue linen curtains were hung there. Those curtains were attached to marble pillars using silver rings, white linen ropes, and purple cloths. Gold couches and silver couches were put in the garden. The garden floor was made of beautiful stones, marble, shells, and valuable gems. Footnote: During feasts people reclined on couches while they ate.
+ 
+Concept (Adjective): purple-A  'the color'
+Verse: Esther 1:6 <<Before the guests came to the garden,>> white linen curtains and blue linen curtains were hung there. Those curtains were attached to marble pillars using silver rings, white linen ropes, and purple cloths. Gold couches and silver couches were put in the garden. The garden floor was made of beautiful stones, marble, shells, and valuable gems. Footnote: During feasts people reclined on couches while they ate.
+ 
+Concept (Noun): couch-A  'a long seat for sitting or reclining'
+Verse: Esther 1:6 <<Before the guests came to the garden,>> white linen curtains and blue linen curtains were hung there. Those curtains were attached to marble pillars using silver rings, white linen ropes, and purple cloths. Gold couches and silver couches were put in the garden. The garden floor was made of beautiful stones, marble, shells, and valuable gems. Footnote: During feasts people reclined on couches while they ate.
+ 
+Concept (Noun): gold-A  'the substance gold'
+Verse: Esther 1:6 <<Before the guests came to the garden,>> white linen curtains and blue linen curtains were hung there. Those curtains were attached to marble pillars using silver rings, white linen ropes, and purple cloths. Gold couches and silver couches were put in the garden. The garden floor was made of beautiful stones, marble, shells, and valuable gems. Footnote: During feasts people reclined on couches while they ate.
+ 
+Concept (Noun): floor-A  'a floor that we walk on (John sat on the floor.)'
+Verse: Esther 1:6 <<Before the guests came to the garden,>> white linen curtains and blue linen curtains were hung there. Those curtains were attached to marble pillars using silver rings, white linen ropes, and purple cloths. Gold couches and silver couches were put in the garden. The garden floor was made of beautiful stones, marble, shells, and valuable gems. Footnote: During feasts people reclined on couches while they ate.
+ 
+Concept (Verb): be-Q  'substance (The house is made of wood.)'
+Verse: Esther 1:6 <<Before the guests came to the garden,>> white linen curtains and blue linen curtains were hung there. Those curtains were attached to marble pillars using silver rings, white linen ropes, and purple cloths. Gold couches and silver couches were put in the garden. The garden floor was made of beautiful stones, marble, shells, and valuable gems. Footnote: During feasts people reclined on couches while they ate.
+ 
+Concept (Adjective): beautiful-A  'pleasant to look at'
+Verse: Esther 1:6 <<Before the guests came to the garden,>> white linen curtains and blue linen curtains were hung there. Those curtains were attached to marble pillars using silver rings, white linen ropes, and purple cloths. Gold couches and silver couches were put in the garden. The garden floor was made of beautiful stones, marble, shells, and valuable gems. Footnote: During feasts people reclined on couches while they ate.
+ 
+Concept (Noun): shell-A  'the covering of a small sea creature'
+Verse: Esther 1:6 <<Before the guests came to the garden,>> white linen curtains and blue linen curtains were hung there. Those curtains were attached to marble pillars using silver rings, white linen ropes, and purple cloths. Gold couches and silver couches were put in the garden. The garden floor was made of beautiful stones, marble, shells, and valuable gems. Footnote: During feasts people reclined on couches while they ate.
+ 
+Concept (Adjective): valuable-A  'to be worth much'
+Verse: Esther 1:6 <<Before the guests came to the garden,>> white linen curtains and blue linen curtains were hung there. Those curtains were attached to marble pillars using silver rings, white linen ropes, and purple cloths. Gold couches and silver couches were put in the garden. The garden floor was made of beautiful stones, marble, shells, and valuable gems. Footnote: During feasts people reclined on couches while they ate.
+ 
+Concept (Noun): gem-A  'a valuable and beautiful stone'
+Verse: Esther 1:6 <<Before the guests came to the garden,>> white linen curtains and blue linen curtains were hung there. Those curtains were attached to marble pillars using silver rings, white linen ropes, and purple cloths. Gold couches and silver couches were put in the garden. The garden floor was made of beautiful stones, marble, shells, and valuable gems. Footnote: During feasts people reclined on couches while they ate.
+ 
+Concept (Verb): recline-A  'complex - to recline at a table while eating'
+Verse: Esther 1:6 <<Before the guests came to the garden,>> white linen curtains and blue linen curtains were hung there. Those curtains were attached to marble pillars using silver rings, white linen ropes, and purple cloths. Gold couches and silver couches were put in the garden. The garden floor was made of beautiful stones, marble, shells, and valuable gems. Footnote: During feasts people reclined on couches while they ate.
+ 
+Concept (Noun): cup-A  'a container for drinking'
+Verse: Esther 1:7
+ 
+Concept (Adposition): -Kind of-A  'marks kinds of things (There are many kinds of birds.)'
+Verse: Esther 1:7 The guests drank wine from gold goblets. There were many kinds of goblets. King Xerxes gave a lot of wine to the people because he was very generous.
+ 
+Concept (Adjective): generous-A  'willing to give to other people'
+Verse: Esther 1:7 The guests drank wine from gold goblets. There were many kinds of goblets. King Xerxes gave a lot of wine to the people because he was very generous.
+ 
+Concept (Verb): command-A  'to command someone to do something'
+Verse: Esther 1:8 King Xerxes commanded the servants to allow every guest to drink all of the wine that he wanted. The king told each servant to give every person all of the wine that he asked the servant for. <<So all of the people drank a lot of wine.>>
+ 
+Concept (Adjective): every-A  'every item in a group'
+Verse: Esther 1:8 King Xerxes commanded the servants to allow every guest to drink all of the wine that he wanted. The king told each servant to give every person all of the wine that he asked the servant for. <<So all of the people drank a lot of wine.>>
+ 
+Concept (Verb): want-C  'to want something to possess it (Mary wants a house.)'
+Verse: Esther 1:8 King Xerxes commanded the servants to allow every guest to drink all of the wine that he wanted. The king told each servant to give every person all of the wine that he asked the servant for. <<So all of the people drank a lot of wine.>>
+ 
+Concept (Verb): ask-B  'to request something from someone (John asked Mary for some bread.)'
+Verse: Esther 1:8 King Xerxes commanded the servants to allow every guest to drink all of the wine that he wanted. The king told each servant to give every person all of the wine that he asked the servant for. <<So all of the people drank a lot of wine.>>
+ 
+Concept (Verb): have-G  'to have an event (John had a party.)'
+Verse: Esther 1:9 Queen Vashti also had a feast for all of the women who were living in King Xerxes' palace.
+ 
+Concept (Adjective): seventh-A  '7th in a series'
+Verse: Esther 1:10 On the seventh day King Xerxes was very happy because he drank a lot of wine. So he called the seven eunuchs who served him. <<Those seven eunuchs took care of Xerxes' wives.>> Those eunuchs' names were Mehuman, Biztha, Harbona, Bigtha, Abagtha, Zethar, and Carcas.
+ 
+Concept (Verb): call-A  'to summon someone'
+Verse: Esther 1:10 On the seventh day King Xerxes was very happy because he drank a lot of wine. So he called the seven eunuchs who served him. <<Those seven eunuchs took care of Xerxes' wives.>> Those eunuchs' names were Mehuman, Biztha, Harbona, Bigtha, Abagtha, Zethar, and Carcas.
+ 
+Concept (Noun): eunuch-A  'a man whose testicles have been removed, often he takes care of the king's wives'
+Verse: Esther 1:10 On the seventh day King Xerxes was very happy because he drank a lot of wine. So he called the seven eunuchs who served him. <<Those seven eunuchs took care of Xerxes' wives.>> Those eunuchs' names were Mehuman, Biztha, Harbona, Bigtha, Abagtha, Zethar, and Carcas.
+ 
+Concept (Verb): serve-A  'to work for  someone'
+Verse: Esther 1:10 On the seventh day King Xerxes was very happy because he drank a lot of wine. So he called the seven eunuchs who served him. <<Those seven eunuchs took care of Xerxes' wives.>> Those eunuchs' names were Mehuman, Biztha, Harbona, Bigtha, Abagtha, Zethar, and Carcas.
+ 
+Concept (Noun): Mehuman-A  'in Esther'
+Verse: Esther 1:10 On the seventh day King Xerxes was very happy because he drank a lot of wine. So he called the seven eunuchs who served him. <<Those seven eunuchs took care of Xerxes' wives.>> Those eunuchs' names were Mehuman, Biztha, Harbona, Bigtha, Abagtha, Zethar, and Carcas.
+ 
+Concept (Noun): Biztha-A  'in Esther'
+Verse: Esther 1:10 On the seventh day King Xerxes was very happy because he drank a lot of wine. So he called the seven eunuchs who served him. <<Those seven eunuchs took care of Xerxes' wives.>> Those eunuchs' names were Mehuman, Biztha, Harbona, Bigtha, Abagtha, Zethar, and Carcas.
+ 
+Concept (Noun): Harbona-A  'in Esther'
+Verse: Esther 1:10 On the seventh day King Xerxes was very happy because he drank a lot of wine. So he called the seven eunuchs who served him. <<Those seven eunuchs took care of Xerxes' wives.>> Those eunuchs' names were Mehuman, Biztha, Harbona, Bigtha, Abagtha, Zethar, and Carcas.
+ 
+Concept (Noun): Bigtha-A  'in Esther'
+Verse: Esther 1:10 On the seventh day King Xerxes was very happy because he drank a lot of wine. So he called the seven eunuchs who served him. <<Those seven eunuchs took care of Xerxes' wives.>> Those eunuchs' names were Mehuman, Biztha, Harbona, Bigtha, Abagtha, Zethar, and Carcas.
+ 
+Concept (Noun): Abagtha-A  'in Esther'
+Verse: Esther 1:10 On the seventh day King Xerxes was very happy because he drank a lot of wine. So he called the seven eunuchs who served him. <<Those seven eunuchs took care of Xerxes' wives.>> Those eunuchs' names were Mehuman, Biztha, Harbona, Bigtha, Abagtha, Zethar, and Carcas.
+ 
+Concept (Noun): Zethar-A  'in Esther'
+Verse: Esther 1:10 On the seventh day King Xerxes was very happy because he drank a lot of wine. So he called the seven eunuchs who served him. <<Those seven eunuchs took care of Xerxes' wives.>> Those eunuchs' names were Mehuman, Biztha, Harbona, Bigtha, Abagtha, Zethar, and Carcas.
+ 
+Concept (Noun): Carcas-A  'in Esther'
+Verse: Esther 1:10 On the seventh day King Xerxes was very happy because he drank a lot of wine. So he called the seven eunuchs who served him. <<Those seven eunuchs took care of Xerxes' wives.>> Those eunuchs' names were Mehuman, Biztha, Harbona, Bigtha, Abagtha, Zethar, and Carcas.
+ 
+Concept (Verb): bring-B  'to have someone accompany someone else to someplace'
+Verse: Esther 1:11 King Xerxes commanded those seven eunuchs to bring Queen Vashti to him. He wanted Queen Vashti to wear Vashti's crown. And he wanted to show the beautiful queen to all of the people and the nobles. For the queen was very beautiful.
+ 
+Concept (Noun): crown-A  'complex - a king or queen's crown'
+Verse: Esther 1:11 King Xerxes commanded those seven eunuchs to bring Queen Vashti to him. He wanted Queen Vashti to wear Vashti's crown. And he wanted to show the beautiful queen to all of the people and the nobles. For the queen was very beautiful.
+ 
+Concept (Noun): queen-A  'a queen'
+Verse: Esther 1:11 King Xerxes commanded those seven eunuchs to bring Queen Vashti to him. He wanted Queen Vashti to wear Vashti's crown. And he wanted to show the beautiful queen to all of the people and the nobles. For the queen was very beautiful.
+ 
+Concept (Conjunction): for-A  'indicates a reason clause, kind of like 'because', but can be used in a separate sentence'
+Verse: Esther 1:11 King Xerxes commanded those seven eunuchs to bring Queen Vashti to him. He wanted Queen Vashti to wear Vashti's crown. And he wanted to show the beautiful queen to all of the people and the nobles. For the queen was very beautiful.
+ 
+Concept (Noun): command-A  'a person in authority says a command to someone'
+Verse: Esther 1:12 So those seven eunuchs went to Queen Vashti and told the king's command to her. But Queen Vashti refused to go to the king. Then King Xerxes became very angry <<because the queen didn't obey him>>. He was extremely angry.
+ 
+Concept (Verb): be-angry-A-A
+Verse: Esther 1:12 So those seven eunuchs went to Queen Vashti and told the king's command to her. But Queen Vashti refused to go to the king. Then King Xerxes became very angry <<because the queen didn't obey him>>. He was extremely angry.
+ 
+Concept (Verb): know-C  'to know a bit of knowledge such as a person's name, the meaning of a word, etc. (Mary knew a secret.)'
+Verse: Esther 1:13 <<So King Xerxes wanted to punish Queen Vashti.>> In those days <<before the king punished a person,>> he always talked about the problem to men who knew the law well. So King Xerxes talked about Queen Vashti to some wise men who understood the law.
+ 
+Concept (Noun): law-A  'a law'
+Verse: Esther 1:13 <<So King Xerxes wanted to punish Queen Vashti.>> In those days <<before the king punished a person,>> he always talked about the problem to men who knew the law well. So King Xerxes talked about Queen Vashti to some wise men who understood the law.
+ 
+Concept (Adverb): always-A  'the state will always be true'
+Verse: Esther 1:13 <<So King Xerxes wanted to punish Queen Vashti.>> In those days <<before the king punished a person,>> he always talked about the problem to men who knew the law well. So King Xerxes talked about Queen Vashti to some wise men who understood the law.
+ 
+Concept (Adjective): wise-A  'wise attribute'
+Verse: Esther 1:13 <<So King Xerxes wanted to punish Queen Vashti.>> In those days <<before the king punished a person,>> he always talked about the problem to men who knew the law well. So King Xerxes talked about Queen Vashti to some wise men who understood the law.
+ 
+Concept (Verb): understand-A  'to understand something (John understood the problem.)'
+Verse: Esther 1:13 <<So King Xerxes wanted to punish Queen Vashti.>> In those days <<before the king punished a person,>> he always talked about the problem to men who knew the law well. So King Xerxes talked about Queen Vashti to some wise men who understood the law.
+ 
+Concept (Adverb): often-A  'to do something often'
+Verse: Esther 1:14 The king talked to those seven men often. Those wise men's names were Karshena, Shethar, Admatha, Tarshish, Meres, Marsena, and Memukan. Those seven wise nobles were from Persia and Media. Those men went to the king often. They were the most important officials in Xerxes' kingdom.
+ 
+Concept (Noun): Karshena-A
+Verse: Esther 1:14 The king talked to those seven men often. Those wise men's names were Karshena, Shethar, Admatha, Tarshish, Meres, Marsena, and Memukan. Those seven wise nobles were from Persia and Media. Those men went to the king often. They were the most important officials in Xerxes' kingdom.
+ 
+Concept (Noun): Shethar-A  'in Esther'
+Verse: Esther 1:14 The king talked to those seven men often. Those wise men's names were Karshena, Shethar, Admatha, Tarshish, Meres, Marsena, and Memukan. Those seven wise nobles were from Persia and Media. Those men went to the king often. They were the most important officials in Xerxes' kingdom.
+ 
+Concept (Noun): Admatha-A  'in Esther'
+Verse: Esther 1:14 The king talked to those seven men often. Those wise men's names were Karshena, Shethar, Admatha, Tarshish, Meres, Marsena, and Memukan. Those seven wise nobles were from Persia and Media. Those men went to the king often. They were the most important officials in Xerxes' kingdom.
+ 
+Concept (Noun): Tarshish-A  'man in Esther'
+Verse: Esther 1:14 The king talked to those seven men often. Those wise men's names were Karshena, Shethar, Admatha, Tarshish, Meres, Marsena, and Memukan. Those seven wise nobles were from Persia and Media. Those men went to the king often. They were the most important officials in Xerxes' kingdom.
+ 
+Concept (Noun): Meres-A  'in Esther'
+Verse: Esther 1:14 The king talked to those seven men often. Those wise men's names were Karshena, Shethar, Admatha, Tarshish, Meres, Marsena, and Memukan. Those seven wise nobles were from Persia and Media. Those men went to the king often. They were the most important officials in Xerxes' kingdom.
+ 
+Concept (Noun): Marsena-A  'in Esther'
+Verse: Esther 1:14 The king talked to those seven men often. Those wise men's names were Karshena, Shethar, Admatha, Tarshish, Meres, Marsena, and Memukan. Those seven wise nobles were from Persia and Media. Those men went to the king often. They were the most important officials in Xerxes' kingdom.
+ 
+Concept (Noun): Memukan-A  'in Esther'
+Verse: Esther 1:14 The king talked to those seven men often. Those wise men's names were Karshena, Shethar, Admatha, Tarshish, Meres, Marsena, and Memukan. Those seven wise nobles were from Persia and Media. Those men went to the king often. They were the most important officials in Xerxes' kingdom.
+ 
+Concept (Verb): say-D  'a book, law or command says something (indirect quote) (The law says that ...)'
+Verse: Esther 1:15 King Xerxes asked those men, Literal Alternate: "What should be done to Queen Vashti? Dynamic Alternate: "How should I punish the queen? End of Alternates. What does the law say? I, King Xerxes, told the eunuchs to tell a command to Queen Vashti. But Queen Vashti didn't obey that command."
+ 
+Concept (Verb): obey-A  'to do whatever a law or commandment requires (John obeyed the law.)'
+Verse: Esther 1:15 King Xerxes asked those men, Literal Alternate: "What should be done to Queen Vashti? Dynamic Alternate: "How should I punish the queen? End of Alternates. What does the law say? I, King Xerxes, told the eunuchs to tell a command to Queen Vashti. But Queen Vashti didn't obey that command."
+ 
+Concept (Verb): act-A  'to do a generic action'
+Verse: Esther 1:16 Then Memukan said to the king and the other wise nobles, "Queen Vashti acted badly. Queen Vashti treated you, the king, badly and treated all of the nobles and all of the people who are living in your provinces badly.
+ 
+Concept (Verb): order-A  'to order someone to do something'
+Verse: Esther 1:17 All of the women <<who are living in this kingdom>> will hear about the things that Queen Vashti did. <<The women will hear that you ordered Queen Vashti to come to you. And the women will hear that Queen Vashti didn't come to you.>> Then those women won't obey their husbands. Those women will say,  
+Concept (Verb): write-F  'to write a law or command'
+Verse: Esther 1:19 Therefore, I suggest to you, the king, that you write a new decree. This new decree will be written for all of the people who are living in Media and Persia. No person will be able to change this new decree. This new decree will say that Queen Vashti must not come to you, King Xerxes, again. And you, the king, should choose another woman. That woman will become the queen. That woman will become a better queen than Queen Vashti.
+ 
+Concept (Verb): be-able-B-A
+Verse: Esther 1:19 Therefore, I suggest to you, the king, that you write a new decree. This new decree will be written for all of the people who are living in Media and Persia. No person will be able to change this new decree. This new decree will say that Queen Vashti must not come to you, King Xerxes, again. And you, the king, should choose another woman. That woman will become the queen. That woman will become a better queen than Queen Vashti.
+ 
+Concept (Verb): change-D  'to change something so that it's different (e.g. They want to change the laws.)'
+Verse: Esther 1:19 Therefore, I suggest to you, the king, that you write a new decree. This new decree will be written for all of the people who are living in Media and Persia. No person will be able to change this new decree. This new decree will say that Queen Vashti must not come to you, King Xerxes, again. And you, the king, should choose another woman. That woman will become the queen. That woman will become a better queen than Queen Vashti.
+ 
+Concept (Noun): messenger-A  'a person who carries and delivers written messages'
+Verse: Esther 1:20 This new decree will be proclaimed to all of the people who live in your kingdom. Then all of the women <<who live in your kingdom>> will respect their husbands. The least important men will be respected. And the most important men will be respected."
+ 
+Concept (Verb): proclaim-C  'complex - to proclaim something (John proclaimed the gospel.)'
+Verse: Esther 1:20 This new decree will be proclaimed to all of the people who live in your kingdom. Then all of the women <<who live in your kingdom>> will respect their husbands. The least important men will be respected. And the most important men will be respected."
+ 
+Concept (Verb): agree-A  'to agree with a person or things that have been said or written (John agreed with Mary. John agreed with the plan.)'
+Verse: Esther 1:21 King Xerxes and the other wise nobles agreed with Memukan. So King Xerxes did all of the things that Memukan said.
+ 
+Concept (Verb): send-B  'to send a letter, message, or package to someone'
+Verse: Esther 1:22 King Xerxes sent letters to all of the people who were living in his kingdom. Messengers took those letters to every province. Those letters were written in many languages. The king's new decree proclaimed that every man has to rule his family. And every man has to speak the language that he learned from his parents.
+ 
+Concept (Noun): letter-A  'a written message that is sent to someone'
+Verse: Esther 1:22 King Xerxes sent letters to all of the people who were living in his kingdom. Messengers took those letters to every province. Those letters were written in many languages. The king's new decree proclaimed that every man has to rule his family. And every man has to speak the language that he learned from his parents.
+ 
+Concept (Noun): secretary-A  'a person who records meetings or writes letters for someone'
+Verse: Esther 1:22 King Xerxes sent letters to all of the people who were living in his kingdom. Messengers took those letters to every province. Those letters were written in many languages. The king's new decree proclaimed that every man has to rule his family. And every man has to speak the language that he learned from his parents.
+ 
+Concept (Verb): proclaim-A  'complex - to proclaim to someone something, assert that it is true (The king proclaimed that ...)'
+Verse: Esther 1:22 King Xerxes sent letters to all of the people who were living in his kingdom. Messengers took those letters to every province. Those letters were written in many languages. The king's new decree proclaimed that every man has to rule his family. And every man has to speak the language that he learned from his parents.
+ 
+Concept (Verb): speak-B  'to speak a language'
+Verse: Esther 1:22 King Xerxes sent letters to all of the people who were living in his kingdom. Messengers took those letters to every province. Those letters were written in many languages. The king's new decree proclaimed that every man has to rule his family. And every man has to speak the language that he learned from his parents.
+ 
+Concept (Verb): learn-A  'to learn something generic (John learned some things at school.)'
+Verse: Esther 1:22 King Xerxes sent letters to all of the people who were living in his kingdom. Messengers took those letters to every province. Those letters were written in many languages. The king's new decree proclaimed that every man has to rule his family. And every man has to speak the language that he learned from his parents.
+ 
