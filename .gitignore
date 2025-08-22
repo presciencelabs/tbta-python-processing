@@ -2,4 +2,5 @@ dist/*
 build/*
 *.spec
 __pycache__/*
-*/test/*.docx
+*.docx
+Analysis*.txt
