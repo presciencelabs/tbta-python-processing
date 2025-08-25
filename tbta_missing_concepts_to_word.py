@@ -1,11 +1,9 @@
 import sys
 import re
 from pathlib import Path
+import time
 
-from docx import Document
-from docx.enum.section import WD_ORIENT
-from docx.enum.text import WD_ALIGN_PARAGRAPH, WD_COLOR_INDEX
-from docx.shared import Pt, Cm
+import doc_utils
 
 
 # Parameter Name Constants
@@ -13,6 +11,7 @@ PARAM_INPUT_PATH = 'input_path'
 PARAM_OUTPUT_PATH = 'output_path'
 PARAM_NOTES_COLUMN = 'add_notes_column'
 PARAM_PASSAGE = 'passage'
+PARAM_TEST = 'test'
 
 # Concept Info Fields
 CONCEPT_WORD = 'word'
@@ -43,6 +42,8 @@ HEADER_NOTES = 'Notes'
 
 
 def get_params():
+    # usage is: tbta_missing_concepts_to_word.exe -n -t "text_file.txt"
+    # The text file path is required
     if len(sys.argv) < 2:
         print('Please specify a .txt file to import')
         return None
@@ -61,6 +62,7 @@ def get_params():
         PARAM_INPUT_PATH: file_path,
         PARAM_OUTPUT_PATH: file_path.with_name(f'Lexicon - {file_path.stem}.docx'),
         PARAM_NOTES_COLUMN: '-N' in sys.argv or '-n' in sys.argv,
+        PARAM_TEST: '-T' in sys.argv or '-t' in sys.argv,
     }
 
 
@@ -139,25 +141,10 @@ def extract_verse_occurrences(word, text):
 
 
 def export_document(categories, params):
-    doc = Document()
-    doc.styles['Normal'].font.name = 'Calibri (Body)'
-
-    # Set orientation to landscape
-    section = doc.sections[-1]
-    old_width, old_height = section.page_width, section.page_height
-    section.orientation = WD_ORIENT.LANDSCAPE
-    section.page_height = old_width
-    section.page_width = old_height
-
-    # Set the margins to Normal (2.54cm for each)
-    section.left_margin = Cm(2.54)
-    section.right_margin = Cm(2.54)
+    doc = doc_utils.create_doc(landscape=True, mx=2.54)
 
     # Add the passage as a heading
-    passage_paragraph = doc.add_paragraph(params[PARAM_PASSAGE])
-    passage_run = passage_paragraph.runs[0]
-    passage_run.bold = True
-    passage_run.font.size = Pt(14)
+    doc_utils.add_paragraph(doc, { 'text': params[PARAM_PASSAGE] , 'bold': True, 'size': 14 })
 
     # Create the tables
     table_order = [
@@ -172,9 +159,8 @@ def export_document(categories, params):
         CATEGORY_PHRASAL,
     ]
     ordered_categories = sorted(categories.items(), key=lambda kv: table_order.index(kv[0]))
-    add_notes_column = params[PARAM_NOTES_COLUMN]
     for idx, (category, concepts) in enumerate(ordered_categories):
-        create_table(category, concepts, idx+1, doc, add_notes_column)
+        create_table(category, concepts, idx+1, doc, params[PARAM_NOTES_COLUMN])
 
     try:
         doc.save(str(params[PARAM_OUTPUT_PATH]))
@@ -191,89 +177,76 @@ def create_table(category, concepts, table_num, doc, add_notes_column):
     # Figure out the column names and widths
     if category == CATEGORY_PROPER:
         col_names = [f'Nouns: {category}s', HEADER_GLOSS, HEADER_TARGET_WORD]
-        col_widths = [Cm(5)] * 3
+        col_widths = [5] * 3
     elif add_notes_column:
         col_names = [category + 's', HEADER_GLOSS, HEADER_OCCURRENCE, HEADER_SAMPLE, HEADER_TARGET_WORD, HEADER_TARGET_GLOSS, HEADER_NOTES]
-        col_widths = [Cm(2.5), Cm(3), Cm(6), Cm(3), Cm(3), Cm(3), Cm(3)]
+        col_widths = [2.5, 3, 6, 3, 3, 3, 3]
     else:
         col_names = [category + 's', HEADER_GLOSS, HEADER_OCCURRENCE, HEADER_SAMPLE, HEADER_TARGET_WORD, HEADER_TARGET_GLOSS]
-        col_widths = [Cm(2.7), Cm(3.2), Cm(6.3), Cm(4), Cm(3.4), Cm(3.4)]
+        col_widths = [2.7, 3.2, 6.3, 4, 3.4, 3.4]
 
-    # Add the caption
     if table_num > 1:
-        doc.add_paragraph().paragraph_format.space_after = Pt(0)
-    caption = doc.add_paragraph(f'Table {table_num}. {category}s')
-    caption.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    caption.paragraph_format.space_after = Pt(0)
+        doc_utils.add_paragraph(doc, formatting={ 'space_after': 0 })
 
-    # Create the table
-    table = doc.add_table(rows=1, cols=len(col_names), style='Table Grid')
+    table_data = [
+        # the header row
+        [{ 'text': name, 'highlight': name == HEADER_TARGET_WORD } for name in col_names],
+    ]
+    table_data.extend(get_concept_rows(category, concepts))
 
-    # Add the header
-    header_cols = table.row_cells(0)
-    for idx, text in enumerate(col_names):
-        header_cols[idx].text = text
-        if text == HEADER_TARGET_WORD:
-            header_cols[idx].paragraphs[0].runs[0].font.highlight_color = WD_COLOR_INDEX.YELLOW
+    doc_utils.add_table(doc, table_data, col_widths, caption=f'Table {table_num}. {category}s')
 
+
+def get_concept_rows(category, concepts):
     # TODO do we need to alphabetize the concepts?
-    for concept in concepts:
-        row_cells = table.add_row().cells
-        row_cells[0].text = concept[CONCEPT_WORD]
-        row_cells[1].text = concept[CONCEPT_GLOSS]
-
-        if CONCEPT_OCCURRENCES in concept:
-            add_verse_sentences(concept, row_cells[2])
-        if CONCEPT_SAMPLE in concept:
-            add_sample_sentences(concept, row_cells[3])
-
-    # Each cell width needs to be set individually
-    for idx, col in enumerate(table.columns):
-        for cell in col.cells:
-            cell.width = col_widths[idx]
-
-
-def add_verse_sentences(concept, table_cell):
-    paragraph = table_cell.paragraphs[0]
-
-    if concept[CONCEPT_OCCURRENCES]:
-        paragraph.add_run(text=concept[CONCEPT_VERSE_REF])
-
-        # Show each occurrence of the word in bold
-        for occurrence in concept[CONCEPT_OCCURRENCES]:
-            sentence = occurrence['sentence']
-            start, end = occurrence['location']
-            paragraph.add_run(text=' ' + sentence[:start])
-            paragraph.add_run(text=sentence[start:end]).bold = True
-            paragraph.add_run(text=sentence[end:])
+    if category == CATEGORY_PROPER:
+        return [[concept[CONCEPT_WORD], concept[CONCEPT_GLOSS]] for concept in concepts]
     else:
+        return [[concept[CONCEPT_WORD], concept[CONCEPT_GLOSS], add_verse_sentences(concept), add_sample_sentences(concept)] for concept in concepts]
+
+
+def add_verse_sentences(concept):
+    if CONCEPT_OCCURRENCES not in concept or not concept[CONCEPT_OCCURRENCES]:
         # Show the whole verse and highlight the text so the user knows to attend to it
-        run_text = concept[CONCEPT_VERSE_REF] + ' ' + concept[CONCEPT_VERSE_TEXT]
-        run_font = paragraph.add_run(text=run_text).font
-        run_font.highlight_color = WD_COLOR_INDEX.YELLOW
+        return { 'text': concept[CONCEPT_VERSE_REF] + ' ' + concept[CONCEPT_VERSE_TEXT], 'highlight': True, 'size': 10 }
 
-    for run in paragraph.runs:
-        run.font.size = Pt(10)
+    runs = [{ 'text': concept[CONCEPT_VERSE_REF] }]
+    # Show each occurrence of the word in bold
+    for occurrence in concept[CONCEPT_OCCURRENCES]:
+        sentence = occurrence['sentence']
+        start, end = occurrence['location']
+        runs.extend([
+            { 'text': ' ' + sentence[:start] },
+            { 'text': sentence[start:end], 'bold': True },
+            { 'text': sentence[end:] },
+        ])
+    for run in runs:
+        run['size'] = 10
+    return runs
 
 
-def add_sample_sentences(concept, table_cell):
+def add_sample_sentences(concept):
+    if CONCEPT_SAMPLE not in concept:
+        return ''
+
     # Start with the sample sentence itself with the separating bar
-    table_cell.text = concept[CONCEPT_SAMPLE] + ' | '
-    paragraph = table_cell.paragraphs[0]
-
-    # Add the place where the translator needs to translate
-    run_font = paragraph.add_run(text='Translation here.').font
-    run_font.highlight_color = WD_COLOR_INDEX.YELLOW
-
-    # Set the font size
-    for run in paragraph.runs:
-        run.font.size = Pt(10)
+    return [
+        { 'text': concept[CONCEPT_SAMPLE] + ' | ', 'size': 10 },
+        { 'text': 'Translation here.', 'highlight': True, 'size': 10 },
+    ]
 
 
 if __name__ == "__main__":
     params = get_params()
     if params:
         concepts = import_concepts(params)
-        if export_document(concepts, params):
-            params[PARAM_INPUT_PATH].unlink()   # delete the original text file
+        start = time.time()
+        success = export_document(concepts, params)
+        end = time.time()
+        print('time elapsed:', end-start)
+        if success:
+        # if export_document(concepts, params):
+            if not params[PARAM_TEST]:
+                print(f'Deleting {params[PARAM_INPUT_PATH]}')
+                params[PARAM_INPUT_PATH].unlink()   # delete the original text file
             print(f'Successfully exported "{params[PARAM_OUTPUT_PATH]}"')

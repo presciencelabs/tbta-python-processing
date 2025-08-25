@@ -1,11 +1,9 @@
 import sys
 import re
 from pathlib import Path
-from difflib import SequenceMatcher
 
-from docx import Document
-from docx.enum.section import WD_ORIENT
-from docx.shared import Cm, RGBColor
+import doc_utils
+from tbta_find_differences import compare_text_words
 
 
 # Parameter Name constants
@@ -110,57 +108,32 @@ def split_verse_sentences(verses):
 
 def export_table(verses, language_names, params):
     print(f'Creating Word document with table rows...')
-    doc = Document()
-    doc.styles['Normal'].font.name = 'Calibri (Body)'
 
-    # Set orientation to landscape
-    section = doc.sections[-1]
-    old_width, old_height = section.page_width, section.page_height
-    section.orientation = WD_ORIENT.LANDSCAPE
-    section.page_height = old_width
-    section.page_width = old_height
+    (col_names, col_widths) = calculate_columns(language_names, params)
+    table_data = []
 
-    # Set the margins
-    section.top_margin = Cm(2)
-    section.bottom_margin = Cm(2)
-    section.left_margin = Cm(1.5)
-    section.right_margin = Cm(1.5)
-
-    # Add the table
-    table = doc.add_table(rows=1, cols=(len(language_names) + 1), style='Table Grid')
+    # Add the headers
+    table_data.append([{ 'text': name, 'bold': True } for name in col_names])
 
     # Add rows for each verse
     for verse in verses:
-        verse_row = table.add_row()
-        verse_row.cells[0].text = verse[VERSE_REF]
+        verse_row = []
+        verse_row.append(verse[VERSE_REF])
 
         if params[PARAM_COMPARE]:
             # Compare the last two texts
             *other, old, new = language_names
-            for (i, lang_name) in enumerate(other):
-                verse_row.cells[i+1].text = verse[VERSE_TEXT][lang_name] or ''
+            verse_row.extend(verse[VERSE_TEXT][lang_name] or '' for lang_name in other)
 
             old_runs, new_runs = compare_text(verse[VERSE_TEXT][old], verse[VERSE_TEXT][new])
-            format_text_runs(old_runs, verse_row.cells[-2])
-            format_text_runs(new_runs, verse_row.cells[-1])
+            verse_row.extend([old_runs, new_runs])
         else:
-            for (i, lang_name) in enumerate(language_names):
-                verse_row.cells[i+1].text = verse[VERSE_TEXT][lang_name] or ''
+            verse_row.extend(verse[VERSE_TEXT][lang_name] or '' for lang_name in language_names)
 
-    (col_names, col_widths) = calculate_columns(language_names, params)
-    if params[PARAM_NOTES_COLUMN]:
-        table.add_column(col_widths[-1])
+        table_data.append(verse_row)
 
-    # Add the headers
-    header_row = table.rows[0]
-    for (i, col_name) in enumerate(col_names):
-        header_row.cells[i].text = col_name
-        header_row.cells[i].paragraphs[0].runs[0].font.bold = True
-
-    # Set the column widths. Each cell needs to be set individually
-    for idx, col in enumerate(table.columns):
-        for cell in col.cells:
-            cell.width = col_widths[idx]
+    doc = doc_utils.create_doc(landscape=True, my=2, mx=1.5)
+    doc_utils.add_table(doc, table_data, col_widths)
 
     return save_document(doc, params[PARAM_OUTPUT_PATH])
 
@@ -169,30 +142,30 @@ def compare_text(old, new):
     old_runs, old_i = [], 0
     new_runs, new_i = [], 0
 
-    # Refer to https://docs.python.org/3/library/difflib.html#difflib.SequenceMatcher.get_matching_blocks
+    diff_format = { 'bold': True, 'red': True }
 
-    for (a, b, n) in SequenceMatcher(None, old, new).get_matching_blocks():
-        if a > old_i:
-            old_runs.append({ 'text': old[old_i:a], 'is_diff': True })
-        old_runs.append({ 'text': old[a:a+n], 'is_diff': False })
-        old_i = a + n
+    for diff in compare_text_words(old, new):
+        (old_start, old_end) = diff.old_indices
+        (new_start, new_end) = diff.new_indices
 
-        if b > new_i:
-            new_runs.append({ 'text': new[new_i:b], 'is_diff': True })
-        new_runs.append({ 'text': new[b:b+n], 'is_diff': False })
-        new_i = b + n
+        if old_start > old_i:
+            old_runs.append({ 'text': old[old_i:old_start] })
+        if old_start != old_end:
+            old_runs.append({ 'text': old[old_start:old_end], **diff_format })
+        old_i = old_end
+
+        if new_start > new_i:
+            new_runs.append({ 'text': new[new_i:new_start] })
+        if new_start != new_end:
+            new_runs.append({ 'text': new[new_start:new_end], **diff_format })
+        new_i = new_end
+    
+    if old_i < len(old):
+        old_runs.append({ 'text': old[old_i:] })
+    if new_i < len(new):
+        new_runs.append({ 'text': new[new_i:] })
     
     return (old_runs, new_runs)
-
-
-def format_text_runs(runs, table_cell):
-    paragraph = table_cell.paragraphs[0]
-
-    for run_data in runs:
-        run = paragraph.add_run(text=run_data['text'])
-        if run_data['is_diff']:
-            run.bold = True
-            run.font.color.rgb = RGBColor(0xFF, 0x00, 0x00)
 
 
 def calculate_columns(languages, params):
@@ -202,18 +175,18 @@ def calculate_columns(languages, params):
     if params[PARAM_NOTES_COLUMN]:
         col_names.append('Notes')
 
-    # Set column widths depending on how many columns there are
-    col_widths = [Cm(3)]
+    # Set column widths (in cm) depending on how many columns there are
+    col_widths = [3]
     if len(col_names) == 2:
-        col_widths.append(Cm(15))
+        col_widths.append(15)
     elif len(col_names) == 3:
-        col_widths.extend([Cm(10), Cm(10)])
+        col_widths.extend([10, 10])
     elif len(col_names) == 4 and len(languages) == 3:
-        col_widths.extend([Cm(7), Cm(7), Cm(7)])
+        col_widths.extend([7, 7, 7])
     elif len(col_names) == 4 and len(languages) == 2:
-        col_widths.extend([Cm(8.5), Cm(8.5), Cm(4)])
+        col_widths.extend([8.5, 8.5, 4])
     elif len(col_names) == 5:
-        col_widths = [Cm(2.5), Cm(6), Cm(6), Cm(6), Cm(3)]
+        col_widths = [2.5, 6, 6, 6, 3]
 
     return (col_names, col_widths)
 
