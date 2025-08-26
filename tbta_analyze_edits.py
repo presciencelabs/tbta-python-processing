@@ -1,7 +1,7 @@
 import sys
 import re
 from pathlib import Path
-from tbta_find_differences import compare_text_words
+from tbta_find_differences import find_differences
 
 # Parameter Name constants
 PARAM_INPUT_PATH_OLD = 'input_path_old'
@@ -94,11 +94,11 @@ def compare_verses(old: dict, new: dict):
             continue
 
         new_verse = new[ref]
-        for diff in compare_text_words(old_verse, new_verse):
-            old_start, old_end = diff.old_indices
-            new_start, new_end = diff.new_indices
+        for diff, old_indices, new_indices in find_differences(old_verse, new_verse, try_match_words=True, separate_punctuation=True):
+            old_start, old_end = old_indices
+            new_start, new_end = new_indices
             diff_value = f'{ref},{old_start}-{old_end},{new_start}-{new_end}'
-            diff_tracker.setdefault(diff.diff, []).append(diff_value)
+            diff_tracker.setdefault(diff, []).append(diff_value)
     
     # sort the diffs by most frequent, then alphabetically
     sorted_diffs = sorted(diff_tracker.items(), key=lambda diff: (len(diff[1])*-1, diff[0]))

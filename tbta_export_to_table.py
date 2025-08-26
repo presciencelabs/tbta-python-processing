@@ -3,7 +3,7 @@ import re
 from pathlib import Path
 
 import doc_utils
-from tbta_find_differences import compare_text_words
+from tbta_find_differences import find_differences
 
 
 # Parameter Name constants
@@ -144,7 +144,7 @@ def compare_text(old, new):
 
     diff_format = { 'bold': True, 'red': True }
 
-    for diff in compare_text_words(old, new):
+    for diff in find_differences(old, new):
         (old_start, old_end) = diff.old_indices
         (new_start, new_end) = diff.new_indices
 

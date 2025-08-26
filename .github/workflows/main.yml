@@ -34,6 +34,9 @@ jobs:
       - name: Create Missing Concepts Export Executable
         run: pyinstaller --onefile --noconsole "tbta_missing_concepts_to_word.py"
       
+      - name: Create Find Differences Executable
+        run: pyinstaller --onefile --noconsole "tbta_find_differences.py"
+      
       - name: Create Analyze Edits Executable
         run: pyinstaller --onefile --noconsole "tbta_analyze_edits.py"
 

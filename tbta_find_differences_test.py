@@ -1,5 +1,5 @@
 import unittest
-from tbta_find_differences import compare_text_words
+from tbta_find_differences import find_differences, DiffData
 
 
 class TestDiffAnalysis(unittest.TestCase):
@@ -7,78 +7,156 @@ class TestDiffAnalysis(unittest.TestCase):
     def test_Matt_2_8(self):
         old = 'Wan Hirudis mautus urang-urang nang bailmu tu ka Betlehem. “Tulakan ha bubuhan ikam wan bujur-bujur cari\'i anak <<nang cagar manjadi raja urang-urang Ibrani>>. Imbah bubuhan ikam manamuakan anak nang itu, hanyar langsung datangi aku. Wan padahakan ha bubuhan ikam lawan aku manganai daerah dimana anak nang itu baada sakira aku kawa tulak ka situ jua handak manyambah inya,” ujar Hirudis baucap lawan urang-urang nang bailmu tu.'
         new = 'Imbah itu Hirudis manyuruh urang-urang nang bisa tu ka Betlehem. “Tulak ha bubuhan ikam wan cari bujur-bujur anak nang itu<<nang cagar jadi raja urang Ibrani>>. Imbah bubuhan ikam tatamu anak nang itu, langsung datangi aku. Padahakan ha bubuhan ikam lawan aku, di dairah mana anak nang itu baada, sakira aku kawa tulak ka situ jua handak manyambah inya,” ujar Hirudis baucap lawan urang-urang nang bisa tu.'
-        expected = {
-            'Wan->Imbah itu': ['2:8,0-3,0-9'],
-            'mautus->manyuruh': ['2:8,12-18,18-26'],
-            'bailmu->bisa': ['2:8,36-42,44-48', '2:8,418-424,398-402'],
-            'Tulakan->Tulak': ['2:8,60-67,66-71'],
-            '->cari': ['2:8,88-88,92-97'],
-            "cari'i->": ['2:8,100-107,109-109'],
-            '<<->': ['2:8,111-114,113-114'],
-            '->itu<<nang': ['2:8,119-119,119-129'],
-            'manjadi->jadi': ['2:8,125-132,135-139'],
-            'urang-urang->urang': ['2:8,138-149,145-150'],
-            'manamuakan->tatamu': ['2:8,179-189,180-186'],
-            'hanyar->': ['2:8,205-212,202-202'],
-            'Wan->': ['2:8,234-238,224-224'],
-            'padahakan->Padahakan': ['2:8,238-247,224-233'],
-            '->,': ['2:8,273-273,259-261', '2:8,316-316,295-297'],
-            'manganai->di': ['2:8,273-283,261-264'],
-            'daerah->dairah': ['2:8,283-289,264-270'],
-            'dimana->mana': ['2:8,290-296,271-275'],
-        }
-        actual = {}
-        compare_text_words('2:8', old, new, actual)
-        print(actual)
-        self.assertDictEqual(actual, expected)
+        expected = [
+            DiffData('Wan->Imbah itu', (0, 3), (0, 9)),
+            DiffData('mautus->manyuruh', (12, 18), (18, 26)),
+            DiffData('bailmu->bisa', (36, 42), (44, 48)),
+            DiffData('Tulakan->Tulak', (60, 67), (66, 71)),
+            DiffData('->cari', (88, 88), (92, 97)),
+            DiffData("cari'i->", (100, 107), (109, 109)),
+            DiffData('<<->', (111, 114), (113, 114)),
+            DiffData('->itu<<nang', (119, 119), (119, 129)),
+            DiffData('manjadi->jadi', (125, 132), (135, 139)),
+            DiffData('urang-urang->urang', (138, 149), (145, 150)),
+            DiffData('manamuakan->tatamu', (179, 189), (180, 186)),
+            DiffData('hanyar->', (205, 212), (202, 202)),
+            DiffData('Wan->', (234, 238), (224, 224)),
+            DiffData('padahakan->Padahakan', (238, 247), (224, 233)),
+            DiffData('->,', (273, 273), (259, 261)),
+            DiffData('manganai->di', (273, 283), (261, 264)),
+            DiffData('daerah->dairah', (283, 289), (264, 270)),
+            DiffData('dimana->mana', (290, 296), (271, 275)),
+            DiffData('->,', (316, 316), (295, 297)),
+            DiffData('bailmu->bisa', (418, 424), (398, 402)),
+        ]
+        actual = find_differences(old, new, try_match_words=True, separate_punctuation=True)
+        self.assertListEqual(actual, expected)
 
     def test_Matt_2_9(self):
         old = 'Imbah urang-urang nang bailmu tu mandangar hal-hal nang diucapakan ulih Raja Hirudis, hanyar bubuhannya tarus tulakan. Bintang nang dilihat ulih urang-urang nang bailmu tu di dairah timur mandahului bubuhannya sampai bintang nang itu hanyar bamandak atas daerah dimana anak nang itu baada di Betlehem.'
         new = 'Imbah urang-urang nang bisa tu mandangar sual nang diucapakan ulih Raja Hirudis, lalu bubuhannya tulakan. Bintang nang dilihat ulih bubuhan nang bisa tu andakannya ada di dairah timur mandahului bubuhannya, sampai bintang nang itu bamandak di atas dairah wadah anak tu di Betlehem.'
-        expected = {
-            'bailmu->bisa': ['2:9,23-29,23-27', '2:9,162-168,145-149'],
-            'hal-hal->sual': ['2:9,43-50,41-45'],
-            'hanyar->lalu': ['2:9,86-92,81-85'],
-            'tarus->': ['2:9,103-109,96-96'],
-            'urang-urang->bubuhan': ['2:9,145-156,132-139'],
-            '->andakannya ada': ['2:9,172-172,153-168'],
-            '->,': ['2:9,209-209,205-207'],
-            'hanyar->': ['2:9,234-241,231-231'],
-            '->di': ['2:9,250-250,240-243'],
-            'daerah->dairah': ['2:9,255-261,248-254'],
-            'dimana->wadah': ['2:9,261-268,254-260'],
-            'nang->': ['2:9,274-279,266-266'],
-            'itu->tu': ['2:9,279-282,266-268'],
-            'baada->': ['2:9,282-288,268-268'],
-        }
-        actual = {}
-        compare_text_words('2:9', old, new, actual)
-        print(actual)
-        self.assertDictEqual(actual, expected)
+        expected_simple = [
+            DiffData('bailmu->bisa', (23, 29), (23, 27)),
+            DiffData('hal-hal->sual', (43, 50), (41, 45)),
+            DiffData('hanyar->lalu', (86, 92), (81, 85)),
+            DiffData('tarus->', (103, 109), (96, 96)),
+            DiffData('urang-urang->bubuhan', (145, 156), (132, 139)),
+            DiffData('bailmu->bisa', (162, 168), (145, 149)),
+            DiffData('->andakannya ada', (172, 172), (153, 168)),
+            DiffData('->,', (209, 210), (205, 207)),
+            DiffData('hanyar->', (234, 241), (231, 231)),
+            DiffData('->di', (250, 250), (240, 243)),
+            DiffData('daerah dimana->dairah wadah', (255, 268), (248, 260)),
+            DiffData('nang itu baada->tu', (274, 288), (266, 268)),
+        ]
+        expected_full = [
+            DiffData('bailmu->bisa', (23, 29), (23, 27)),
+            DiffData('hal-hal->sual', (43, 50), (41, 45)),
+            DiffData('hanyar->lalu', (86, 92), (81, 85)),
+            DiffData('tarus->', (103, 109), (96, 96)),
+            DiffData('urang-urang->bubuhan', (145, 156), (132, 139)),
+            DiffData('bailmu->bisa', (162, 168), (145, 149)),
+            DiffData('->andakannya ada', (172, 172), (153, 168)),
+            DiffData('->,', (209, 209), (205, 207)),
+            DiffData('hanyar->', (234, 241), (231, 231)),
+            DiffData('->di', (250, 250), (240, 243)),
+            DiffData('daerah->dairah', (255, 261), (248, 254)),
+            DiffData('dimana->wadah', (261, 268), (254, 260)),
+            DiffData('nang->', (274, 279), (266, 266)),
+            DiffData('itu->tu', (279, 282), (266, 268)),
+            DiffData('baada->', (282, 288), (268, 268)),
+        ]
+        actual_simple = find_differences(old, new)
+        actual_full = find_differences(old, new, try_match_words=True, separate_punctuation=True)
+        self.assertListEqual(actual_simple, expected_simple)
+        self.assertListEqual(actual_full, expected_full)
 
     def test_Matt_4_24(self):
         old = 'Manusia mandangar manganai Nabi Isa di samuaan <<dairah>> Siria lalu dibawa sabarataan urang nang bapanyakitan, sabarataan urang nang banyak kasakitan, sabarataan urang nang disarungi ulih ruh-ruh jahat, sabarataan urang nang kejang-kejang, wan sabarataan urang nang lumpuh ulih bubuhannya ka wadah-Nya. Lalu Nabi Isa mawarasakan urang-urang nang itu.'
         new = 'Urang-urang nang mandangar sual Nabi Isa di saluruh <<dairah>> Siria lalu mambawa sabarataan urang nang bapanyakitan, urang nang disiksa sakit, urang nang kasarungan ruh-ruh jahat, urang nang gila babi, wan urang nang lumpuh ka Inya. Nabi Isa mawagasakan samunyaan urang tu.'
-        expected = {
-            'Manusia->Urang-urang nang': ['4:24,0-7,0-16'],
-            'manganai->sual': ['4:24,18-26,27-31'],
-            'samuaan->saluruh': ['4:24,39-46,44-51'],
-            'dibawa->mambawa': ['4:24,69-75,74-81'],
-            'sabarataan->': ['4:24,112-123,118-118', '4:24,152-163,144-144', '4:24,204-215,181-181', '4:24,245-256,207-207'],
-            'banyak kasakitan->disiksa sakit': ['4:24,134-150,129-142'],
-            'disarungi ulih->kasarungan': ['4:24,174-188,155-165'],
-            'kejang-kejang->gila babi': ['4:24,226-239,192-201'],
-            'ulih bubuhannya->': ['4:24,274-290,225-225'],
-            'wadah-Nya->Inya': ['4:24,293-302,228-232'],
-            'Lalu->': ['4:24,304-309,234-234'],
-            'urang-urang nang->samunyaan urang': ['4:24,329-347,254-271'],
-            'mawarasakan->mawagasakan': ['4:24,318-329,243-254'],
-            'itu->tu': ['4:24,347-350,271-273'],
-        }
-        actual = {}
-        compare_text_words('4:24', old, new, actual)
-        print(actual)
-        self.assertDictEqual(actual, expected)
+        expected = [
+            DiffData('Manusia->Urang-urang nang', (0, 7), (0, 16)),
+            DiffData('manganai->sual', (18, 26), (27, 31)),
+            DiffData('samuaan->saluruh', (39, 46), (44, 51)),
+            DiffData('dibawa->mambawa', (69, 75), (74, 81)),
+            DiffData('sabarataan->', (112, 123), (118, 118)),
+            DiffData('banyak kasakitan->disiksa sakit', (134, 150), (129, 142)),
+            DiffData('sabarataan->', (152, 163), (144, 144)),
+            DiffData('disarungi ulih->kasarungan', (174, 188), (155, 165)),
+            DiffData('sabarataan->', (204, 215), (181, 181)),
+            DiffData('kejang-kejang->gila babi', (226, 239), (192, 201)),
+            DiffData('sabarataan->', (245, 256), (207, 207)),
+            DiffData('ulih bubuhannya->', (274, 290), (225, 225)),
+            DiffData('wadah-Nya->Inya', (293, 302), (228, 232)),
+            DiffData('Lalu->', (304, 309), (234, 234)),
+            DiffData('urang-urang nang->samunyaan urang', (329, 347), (254, 271)),
+            DiffData('mawarasakan->mawagasakan', (318, 329), (243, 254)),
+            DiffData('itu->tu', (347, 350), (271, 273)),
+        ]
+        actual = find_differences(old, new, try_match_words=True, separate_punctuation=True)
+        self.assertListEqual(actual, expected)
+
+    def test_empty_new(self):
+        old = "“Banyu di bawah langit Kukumpullah. Wan tanah nang karing mancungullah.” maka Allah maulah tanah nang karing mancungul."
+        new = ''
+        expected = [
+            DiffData('"Banyu di bawah langit Kukumpullah. Wan tanah nang karing mancungullah." maka Allah maulah tanah nang karing mancungul.->', (0, 119), (0, 0)),
+        ]
+        actual = find_differences(old, new, try_match_words=True, separate_punctuation=True)
+        self.assertListEqual(actual, expected)
+
+    def test_empty_old(self):
+        old = ''
+        new = "“Banyu di bawah langit Kukumpullah. Wan tanah nang karing mancungullah.” maka Allah maulah tanah nang karing mancungul."
+        expected = [
+            DiffData('->"Banyu di bawah langit Kukumpullah. Wan tanah nang karing mancungullah." maka Allah maulah tanah nang karing mancungul.', (0, 0), (0, 119)),
+        ]
+        actual = find_differences(old, new, try_match_words=True, separate_punctuation=True)
+        self.assertListEqual(actual, expected)
+
+    def test_reversible_full(self):
+        str1 = 'Bumi baluman bapotongan wan puang. Manukupi blah banyu nang dalam. Lalu Ruh Kudus Allah malayang-layang atas banyu.'
+        str2 = 'Bumi baluman bapotongan wan puang. Kadap manukupi banyu nang dalam, lalu Ruh Kudus malayang-layang atas banyu.'
+        expected_12_full = [
+            DiffData('->Kadap', (35, 35), (35, 41)),
+            DiffData('Manukupi->manukupi', (35, 43), (41, 49)),
+            DiffData('blah->', (43, 48), (49, 49)), # the underlying diff is actually ' blah->'
+            DiffData('.->,', (65, 67), (66, 68)),
+            DiffData('Lalu->lalu', (67, 71), (68, 72)),
+            DiffData('Allah->', (82, 88), (83, 83)),
+        ]
+        expected_21_full = [
+            DiffData('Kadap->', (35, 41), (35, 35)),
+            DiffData('manukupi->Manukupi', (41, 49), (35, 43)),
+            DiffData('->blah', (49, 49), (43, 48)), # the underlying diff is actually '-> blah'
+            DiffData(',->.', (66, 68), (65, 67)),
+            DiffData('lalu->Lalu', (68, 72), (67, 71)),
+            DiffData('->Allah', (83, 83), (82, 88)),
+        ]
+        actual_12_full = find_differences(str1, str2, try_match_words=True, separate_punctuation=True)
+        actual_21_full = find_differences(str2, str1, try_match_words=True, separate_punctuation=True)
+        self.assertListEqual(actual_12_full, expected_12_full)
+        self.assertListEqual(actual_21_full, expected_21_full)
+
+    def test_reversible_simple(self):
+        str1 = 'Bumi baluman bapotongan wan puang. Manukupi blah banyu nang dalam. Lalu Ruh Kudus Allah malayang-layang atas banyu.'
+        str2 = 'Bumi baluman bapotongan wan puang. Kadap manukupi banyu nang dalam, lalu Ruh Kudus malayang-layang atas banyu.'
+        expected_12_simple = [
+            DiffData('Manukupi blah->Kadap manukupi', (35, 48), (35, 49)),
+            DiffData('. Lalu->, lalu', (65, 71), (66, 72)),
+            DiffData('Allah->', (82, 88), (83, 83)),
+        ]
+        expected_21_simple = [
+            DiffData('Kadap manukupi->Manukupi blah', (35, 49), (35, 48)),
+            DiffData(', lalu->. Lalu', (66, 72), (65, 71)),
+            DiffData('->Allah', (83, 83), (82, 88)),
+        ]
+        actual_12_simple = find_differences(str1, str2)
+        actual_21_simple = find_differences(str2, str1)
+        print(actual_12_simple)
+        print(actual_21_simple)
+        self.assertListEqual(actual_12_simple, expected_12_simple)
+        self.assertListEqual(actual_21_simple, expected_21_simple)
 
 
 if __name__ == '__main__':

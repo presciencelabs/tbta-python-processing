@@ -1,14 +1,16 @@
 import sys
 import re
 import difflib
+from typing import NamedTuple
 
-class Token:
-    def __init__(self, text: str, char_indices: tuple[int, int]):
-        self.text, self.char_indices = text, char_indices
+class Token(NamedTuple):
+    text: str
+    char_indices: tuple[int, int]
 
-class DiffData:
-    def __init__(self, diff: str, old_indices: tuple[int, int], new_indices: tuple[int, int]):
-        self.diff, self.old_indices, self.new_indices = diff, old_indices, new_indices
+class DiffData(NamedTuple):
+    diff: str
+    old_indices: tuple[int, int]
+    new_indices: tuple[int, int]
 
 class TextRange:
     def __init__(self, tokens: list[Token], char_indices: tuple[int, int]):
@@ -65,15 +67,11 @@ def split_tokens(text: str) -> TextRange:
         token_end = token_start + len(token)
         tokens.append(Token(token, (token_start, token_end)))
         token_start = token_end
-    return TextRange(tokens, (0, len(tokens)))
+    return TextRange(tokens, (0, len(text)))
 
 
 SMART_QUOTE_REGEX = re.compile(r'[“”‘’]')
-def compare_text_words(old: str, new: str) -> list[DiffData]:
-    old_tokens = split_tokens(old)
-    new_tokens = split_tokens(new)
-    old_diff_start_token = 0
-    new_diff_start_token = 0
+def find_differences(old: str, new: str, try_match_words: bool=False, separate_punctuation: bool=False) -> list[DiffData]:
     diffs = []
 
     def record_diff(old_range: TextRange, new_range: TextRange):
@@ -145,6 +143,15 @@ def compare_text_words(old: str, new: str) -> list[DiffData]:
         return ([old_diff[start:end] for (start, end) in old_range_split_indices],
             [new_diff[start:end] for (start, end) in new_range_split_indices])
 
+    old_tokens = split_tokens(old)
+    new_tokens = split_tokens(new)
+    old_diff_start_token = 0
+    new_diff_start_token = 0
+
+    if not old or not new:
+        record_diff(old_tokens, new_tokens)
+        return diffs
+
     # Refer to https://docs.python.org/3/library/difflib.html#difflib.SequenceMatcher.get_matching_blocks
     for (a, b, n) in difflib.SequenceMatcher(lambda x: x == ' ', old_tokens.as_str_list(), new_tokens.as_str_list()).get_matching_blocks():
         old_diff = old_tokens[old_diff_start_token:a]
@@ -156,10 +163,11 @@ def compare_text_words(old: str, new: str) -> list[DiffData]:
             # Don't add an entry if neither text has a diff
             continue
 
-        old_diff, new_diff = handle_punctuation_change(old_diff, new_diff)
+        if separate_punctuation:
+            old_diff, new_diff = handle_punctuation_change(old_diff, new_diff)
 
         # Check for other alignment of words
-        if can_try_to_match_words(old_diff, new_diff):
+        if try_match_words and can_try_to_match_words(old_diff, new_diff):
             old_ranges, new_ranges = try_to_match_words(old_diff, new_diff)
             for old_range, new_range in zip(old_ranges, new_ranges):
                 record_diff(old_range, new_range)
@@ -174,9 +182,7 @@ if __name__ == "__main__":
     if len(texts) == 1:
         texts.append('')
 
-    # texts = ['Hello, this is a test text.', 'Help! this is a testy.']
-
-    diffs = compare_text_words(texts[0], texts[1])
+    diffs = find_differences(texts[0], texts[1])
     old_indices, new_indices = zip(*[(diff.old_indices, diff.new_indices) for diff in diffs])
     old_str = ','.join((f'{start}-{end}' for start, end in old_indices))
     new_str = ','.join((f'{start}-{end}' for start, end in new_indices))
