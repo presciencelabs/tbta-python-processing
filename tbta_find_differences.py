@@ -178,15 +178,21 @@ def find_differences(old: str, new: str, try_match_words: bool=False, separate_p
 
 
 if __name__ == "__main__":
-    texts = sys.stdin.read().splitlines()[:2]
-    if len(texts) == 1:
-        texts.append('')
+    exit_signal = 'close-pipe'
+    while True:
+        old_text = sys.stdin.readline().strip()
+        if old_text == exit_signal:
+            break
+        new_text = sys.stdin.readline().strip()
+        if new_text == exit_signal:
+            break
 
-    diffs = find_differences(texts[0], texts[1])
-    old_indices, new_indices = zip(*[(diff.old_indices, diff.new_indices) for diff in diffs])
-    old_str = ','.join((f'{start}-{end}' for start, end in old_indices))
-    new_str = ','.join((f'{start}-{end}' for start, end in new_indices))
-    full_str = f'{old_str};{new_str}'
+        diffs = find_differences(old_text, new_text)
+        old_indices, new_indices = zip(*[(diff.old_indices, diff.new_indices) for diff in diffs])
+        old_str = ','.join((f'{start}-{end}' for start, end in old_indices))
+        new_str = ','.join((f'{start}-{end}' for start, end in new_indices))
+        full_str = f'{old_str};{new_str}'
 
-    print(full_str)
+        print(full_str, flush=True)
+
     sys.exit(0)
