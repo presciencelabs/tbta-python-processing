@@ -56,7 +56,7 @@ class TextRange:
 
 
 PUNCTUATION = ',.?!:<>"“”‘’'
-SPLIT_REGEX = re.compile(f'([ {PUNCTUATION}]+)')
+SPLIT_REGEX = re.compile(f'([ {PUNCTUATION}])')
 PUNC_REGEX = re.compile(f'([{PUNCTUATION}]+)')
 def split_tokens(text: str) -> TextRange:
     tokens = []
@@ -75,6 +75,13 @@ def find_differences(old: str, new: str, try_match_words: bool=False, separate_p
     diffs = []
 
     def record_diff(old_range: TextRange, new_range: TextRange):
+        if len(old_range) and len(new_range) and old_range[0].text == ' ' and new_range[0].text == ' ':
+            old_range = old_range[1:]
+            new_range = new_range[1:]
+        if len(old_range) and len(new_range) and old_range[-1].text == ' ' and new_range[-1].text == ' ':
+            old_range = old_range[:-1]
+            new_range = new_range[:-1]
+        
         diff_key = SMART_QUOTE_REGEX.sub(lambda m: '"' if m[0] in '“”' else "'", f'{old_range}->{new_range}')
         if len(diff_key) > 2:
             # don't include any empty diffs
