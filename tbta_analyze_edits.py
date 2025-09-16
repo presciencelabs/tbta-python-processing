@@ -69,7 +69,7 @@ def import_verses_from_paratext(input_path: Path, encoding='utf-8'):
                 footnote_match = FOOTNOTE_REPLACE_REGEX.match(line)
                 if footnote_match:
                     ref_key = footnote_match[1]
-                    verses[ref_key] = verses[ref_key] + FOOTNOTE_REPLACE_REGEX.sub('', line)
+                    verses[ref_key] = verses.setdefault(ref_key, '') + FOOTNOTE_REPLACE_REGEX.sub('', line)
             
             verse_match = VERSE_REGEX.fullmatch(line)
             if verse_match:
@@ -88,7 +88,7 @@ def import_verses_from_paratext(input_path: Path, encoding='utf-8'):
 
 
 def compare_verses(old: dict, new: dict):
-    diff_tracker = {}
+    diff_tracker: dict[str, list] = {}
     for ref, old_verse in old.items():
         if ref not in new:
             continue

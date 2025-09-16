@@ -95,6 +95,13 @@ class TestDiffAnalysis(unittest.TestCase):
         actual = find_differences(old, new, try_match_words=True, separate_punctuation=True)
         self.assertListEqual(actual, expected)
 
+    def test_Matt_9_28(self):
+        old = 'Imbah Nabi Isa masuk ka rumah <<nang ditinggal-Nya di Kapernaum>>, urang-urang nang buta mandatangi Sidin. “Bujuranlah buhan ikam parcaya amun Aku bisa mawarasakan buhan ikam?” ujar Nabi Isa batakun lawan urang-urang nitu. “Tuan, inggih,” ujar urang-urang manyahuti.'
+        new = 'Imbah Nabi Isa masuk ka rumah << wadah Sidin tinggal di Kapernaum>>, kadua urang picak nitu mandatangi Sidin. “Parcayalah bubuhan ikam amun Aku kawa mawagasakan bubuhan ikam?” ujar Nabi Isa batakun lawan bubuhannya. “Inggih Tuhan,” ujar bubuhannya manyahuti.'
+        actual = find_differences(old, new, try_match_words=True, separate_punctuation=True)
+        # This verse at one point caused an error due to an index issue
+        self.assertIsNotNone(actual)
+
     def test_empty_new(self):
         old = "“Banyu di bawah langit Kukumpullah. Wan tanah nang karing mancungullah.” maka Allah maulah tanah nang karing mancungul."
         new = ''
@@ -164,6 +171,14 @@ class TestDiffAnalysis(unittest.TestCase):
             DiffData('test->testy', (10, 14), (11, 16)),
             DiffData('->Here was another!', (24, 24), (26, 44)),
         ]
+        actual_simple = find_differences(str1, str2)
+        self.assertListEqual(actual_simple, expected_simple)
+
+
+    def test_same_sentence(self):
+        str1 = "This was a testy sentence. Here was another!"
+        str2 = "This was a testy sentence. Here was another!"
+        expected_simple = []
         actual_simple = find_differences(str1, str2)
         self.assertListEqual(actual_simple, expected_simple)
 

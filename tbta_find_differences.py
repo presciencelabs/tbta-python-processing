@@ -49,6 +49,8 @@ class TextRange:
             new_end_char = self.char_indices[1]
         elif end == 0:
             new_end_char = self.char_indices[0]
+        elif end < 0:
+            new_end_char = self.tokens[len(self)+end-1].char_indices[1]
         else:
             new_end_char = self.tokens[end-1].char_indices[1]
         
@@ -195,7 +197,7 @@ if __name__ == "__main__":
             break
 
         diffs = find_differences(old_text, new_text)
-        old_indices, new_indices = zip(*[(diff.old_indices, diff.new_indices) for diff in diffs])
+        old_indices, new_indices = zip(*[(diff.old_indices, diff.new_indices) for diff in diffs]) if len(diffs) else ((), ())
         old_str = ','.join((f'{start}-{end}' for start, end in old_indices))
         new_str = ','.join((f'{start}-{end}' for start, end in new_indices))
         full_str = f'{old_str};{new_str}'
