@@ -20,6 +20,7 @@ CONCEPT_VERSE_REF = 'verse_ref'
 CONCEPT_VERSE_TEXT = 'verse_text'
 CONCEPT_OCCURRENCES = 'verse_occurrences'
 CONCEPT_SAMPLE = 'sample'
+CONCEPT_TARGETS = 'target_words'
 
 # Semantic Categories
 CATEGORY_PROPER = 'Proper Name'
@@ -107,6 +108,9 @@ def import_concepts(params):
                 concept[CONCEPT_VERSE_REF] = verse_match['ref']
                 concept[CONCEPT_VERSE_TEXT] = verse_match['text']
                 concept[CONCEPT_OCCURRENCES] = extract_verse_occurrences(concept[CONCEPT_WORD], verse_match['text'])
+
+            elif line.startswith('Target Words'):
+                concept[CONCEPT_TARGETS] = line[len('Target Words: '):].strip()
 
             elif line.startswith('Current Passage'):
                 # This only appears once at the top of the text file
@@ -202,7 +206,7 @@ def get_concept_rows(category, concepts):
     if category == CATEGORY_PROPER:
         return [[concept[CONCEPT_WORD], concept[CONCEPT_GLOSS]] for concept in concepts]
     else:
-        return [[concept[CONCEPT_WORD], concept[CONCEPT_GLOSS], add_verse_sentences(concept), add_sample_sentences(concept)] for concept in concepts]
+        return [[concept[CONCEPT_WORD], concept[CONCEPT_GLOSS], add_verse_sentences(concept), add_sample_sentences(concept), add_target_words(concept)] for concept in concepts]
 
 
 def add_verse_sentences(concept):
@@ -234,6 +238,12 @@ def add_sample_sentences(concept):
         { 'text': concept[CONCEPT_SAMPLE] + ' | ', 'size': 10 },
         { 'text': 'Translation here.', 'highlight': True, 'size': 10 },
     ]
+
+
+def add_target_words(concept):
+    if CONCEPT_TARGETS not in concept:
+        return ''
+    return concept[CONCEPT_TARGETS]
 
 
 if __name__ == "__main__":

@@ -3,7 +3,7 @@ from pathlib import Path
 from tbta_missing_concepts_to_word import *
 
 def setup_params(file_name, export_name=None, notes=False):
-    file_path = Path('./test/' + file_name)
+    file_path = Path('./test_docs/missing_concepts_to_word/' + file_name)
     return {
         PARAM_INPUT_PATH: file_path,
         PARAM_OUTPUT_PATH: file_path.with_name(f'Lexicon - {export_name or file_path.stem}.docx'),
@@ -74,6 +74,18 @@ class TestImportConcepts(unittest.TestCase):
         params = setup_params('Esther 1 Issues.txt', export_name='Esther 1 Issues no Verbs')
         concepts = import_concepts(params)
         concepts.pop(CATEGORY_VERB)
+        export_document(concepts, params)
+
+
+    def test_export_w_target_words(self):
+        params = setup_params('English - much w targets.txt', export_name='English - much w targets')
+        concepts = import_concepts(params)
+
+        much = find_concept('much-A', concepts[CATEGORY_ADVERB])
+        self.assertIsNotNone(much)
+        self.assertIn(CONCEPT_TARGETS, much)
+        self.assertGreater(len(much[CONCEPT_TARGETS]), 0)
+
         export_document(concepts, params)
 
 
