@@ -3,17 +3,21 @@ import re
 import difflib
 from typing import NamedTuple
 
+class Indices(NamedTuple):
+    start: int
+    end: int
+
 class Token(NamedTuple):
     text: str
-    char_indices: tuple[int, int]
+    char_indices: Indices
 
 class DiffData(NamedTuple):
     diff: str
-    old_indices: tuple[int, int]
-    new_indices: tuple[int, int]
+    old_indices: Indices
+    new_indices: Indices
 
 class TextRange:
-    def __init__(self, tokens: list[Token], char_indices: tuple[int, int]):
+    def __init__(self, tokens: list[Token], char_indices: Indices):
         self.tokens = tokens
         self.char_indices = char_indices
 
@@ -32,7 +36,7 @@ class TextRange:
     def as_str_list(self):
         return [t.text for t in self.tokens]
 
-    def _slice(self, token_indices: tuple[int, int]):
+    def _slice(self, token_indices: Indices):
         start, end = token_indices
 
         if start == 0 and end == len(self):
@@ -54,7 +58,7 @@ class TextRange:
         else:
             new_end_char = self.tokens[end-1].char_indices[1]
         
-        return TextRange(self.tokens[start:end], (new_start_char, new_end_char))
+        return TextRange(self.tokens[start:end], Indices(new_start_char, new_end_char))
 
 
 PUNCTUATION = ',.?!:<>"“”‘’'
@@ -67,7 +71,7 @@ def split_tokens(text: str) -> TextRange:
         if not len(token):
             continue
         token_end = token_start + len(token)
-        tokens.append(Token(token, (token_start, token_end)))
+        tokens.append(Token(token, Indices(token_start, token_end)))
         token_start = token_end
     return TextRange(tokens, (0, len(text)))
 
