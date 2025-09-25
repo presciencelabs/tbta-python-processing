@@ -210,7 +210,10 @@ def get_concept_rows(category, concepts):
 
 
 def add_verse_sentences(concept):
-    if CONCEPT_OCCURRENCES not in concept or not concept[CONCEPT_OCCURRENCES]:
+    if CONCEPT_TARGETS in concept:
+        # Show the whole verse when there are target word options specified. This gives more context for the MTT to decide which word to use
+        return { 'text': concept[CONCEPT_VERSE_REF] + ' ' + concept[CONCEPT_VERSE_TEXT], 'size': 10 }
+    elif CONCEPT_OCCURRENCES not in concept or not concept[CONCEPT_OCCURRENCES]:
         # Show the whole verse and highlight the text so the user knows to attend to it
         return { 'text': concept[CONCEPT_VERSE_REF] + ' ' + concept[CONCEPT_VERSE_TEXT], 'highlight': True, 'size': 10 }
 
