@@ -1,0 +1,85 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "export_to_word: build",
+            "type": "shell",
+            "command": "pyinstaller --onefile --noconsole \"./tbta_export_to_word.py\"",
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        },
+        {
+            "label": "export_to_table: build",
+            "type": "shell",
+            "command": "pyinstaller --onefile --noconsole \"./tbta_export_to_table.py\"",
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        },
+        {
+            "label": "export_to_table: test",
+            "type": "shell",
+            "command": "tbta_export_to_table_test.py",
+            "group": "test",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        },
+        {
+            "label": "missing_concepts: build",
+            "type": "shell",
+            "command": "pyinstaller --onefile --noconsole \"./tbta_missing_concepts_to_word.py\"",
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        },
+        {
+            "label": "missing_concepts: test",
+            "type": "shell",
+            "command": "tbta_missing_concepts_to_word_test.py",
+            "group": "test",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        },
+        {
+            "label": "analyze_edits: build",
+            "type": "shell",
+            "command": "pyinstaller --onefile --noconsole \"./tbta_analyze_edits.py\"",
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        },
+        {
+            "label": "find_differences: build",
+            "type": "shell",
+            "command": "pyinstaller --onefile --noconsole \"./tbta_find_differences.py\"",
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        },
+        {
+            "label": "find_differences: test",
+            "type": "shell",
+            "command": "tbta_find_differences_test.py",
+            "group": "test",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        }
+    ]
+}
