@@ -107,10 +107,13 @@ def import_concepts(params):
                 verse_match = VERSE_REGEX.match(line)
                 concept[CONCEPT_VERSE_REF] = verse_match['ref']
                 concept[CONCEPT_VERSE_TEXT] = verse_match['text']
-                concept[CONCEPT_OCCURRENCES] = extract_verse_occurrences(concept[CONCEPT_WORD], verse_match['text'])
+                concept[CONCEPT_OCCURRENCES] = extract_verse_occurrences(concept[CONCEPT_WORD], verse_match['text'], split_sentences=True)
 
             elif line.startswith('Target Words'):
                 concept[CONCEPT_TARGETS] = line[len('Target Words: '):].strip()
+                if CONCEPT_VERSE_TEXT in concept:
+                    # Redo finding the occurrences within the whole verse, rather than per sentence
+                    concept[CONCEPT_OCCURRENCES] = extract_verse_occurrences(concept[CONCEPT_WORD], concept[CONCEPT_VERSE_TEXT], split_sentences=False)
 
             elif line.startswith('Current Passage'):
                 # This only appears once at the top of the text file
@@ -123,7 +126,7 @@ def import_concepts(params):
 
 
 SENTENCE_REGEX = re.compile(r'([^.?!]+[.?!]\S*) ?')
-def extract_verse_occurrences(word, text):
+def extract_verse_occurrences(word, text, split_sentences):
     # Remove the sense -X from the word
     dash_idx = word.rindex('-')
     word = word[:dash_idx]
@@ -133,12 +136,13 @@ def extract_verse_occurrences(word, text):
     # The verse might have an unrecognizable form of the word, the word
     # might not be present at all due to restructuring. 
     word_regex = r'\b(' + re.escape(word) + r'(?:s|es|ed|d)?)\b'
-    for sentence in SENTENCE_REGEX.findall(text):
-        word_match = re.search(word_regex, sentence, re.IGNORECASE)
-        if word_match:
+    texts = SENTENCE_REGEX.findall(text) if split_sentences else [text]
+    for text in texts:
+        word_matches = [word_match.span(1) for word_match in re.finditer(word_regex, text, re.IGNORECASE)]
+        if word_matches:
             occurrences.append({
-                'sentence': sentence,
-                'location': word_match.span(1),
+                'text': text,
+                'locations': word_matches,
             })
 
     return occurrences
@@ -210,23 +214,26 @@ def get_concept_rows(category, concepts):
 
 
 def add_verse_sentences(concept):
-    if CONCEPT_TARGETS in concept:
-        # Show the whole verse when there are target word options specified. This gives more context for the MTT to decide which word to use
-        return { 'text': concept[CONCEPT_VERSE_REF] + ' ' + concept[CONCEPT_VERSE_TEXT], 'size': 10 }
-    elif CONCEPT_OCCURRENCES not in concept or not concept[CONCEPT_OCCURRENCES]:
+    if CONCEPT_OCCURRENCES not in concept or not concept[CONCEPT_OCCURRENCES]:
         # Show the whole verse and highlight the text so the user knows to attend to it
         return { 'text': concept[CONCEPT_VERSE_REF] + ' ' + concept[CONCEPT_VERSE_TEXT], 'highlight': True, 'size': 10 }
 
     runs = [{ 'text': concept[CONCEPT_VERSE_REF] }]
+
     # Show each occurrence of the word in bold
     for occurrence in concept[CONCEPT_OCCURRENCES]:
-        sentence = occurrence['sentence']
-        start, end = occurrence['location']
-        runs.extend([
-            { 'text': ' ' + sentence[:start] },
-            { 'text': sentence[start:end], 'bold': True },
-            { 'text': sentence[end:] },
-        ])
+        text = occurrence['text']
+        last_end = 0
+        runs.append({ 'text': ' ' })
+        for occ_start, occ_end in occurrence['locations']:
+            if occ_start > last_end:
+                runs.append({ 'text': text[last_end:occ_start] })
+            runs.append({ 'text': text[occ_start:occ_end], 'bold': True })
+            last_end = occ_end
+
+        if last_end < len(text):
+            runs.append({ 'text': text[last_end:] })
+
     for run in runs:
         run['size'] = 10
     return runs

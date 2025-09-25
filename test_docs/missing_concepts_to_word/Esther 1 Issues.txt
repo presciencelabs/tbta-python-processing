@@ -83,6 +83,7 @@ Verse: Esther 1:5 After that feast ended, King Xerxes invited all of the people 
  
 Concept (Noun): garden-A  'a place where vegetables and fruits are grown'
 Verse: Esther 1:5 After that feast ended, King Xerxes invited all of the people who were living in Susa to come to another feast. That feast was for seven days in the garden that was at Xerxes' palace. King Xerxes invited the least important people and the most important people to come to that feast.
+Target Words: garden
  
 Concept (Adjective): important-A  'important attribute'
 Verse: Esther 1:5 After that feast ended, King Xerxes invited all of the people who were living in Susa to come to another feast. That feast was for seven days in the garden that was at Xerxes' palace. King Xerxes invited the least important people and the most important people to come to that feast.
@@ -228,9 +229,6 @@ Verse: Esther 1:11 King Xerxes commanded those seven eunuchs to bring Queen Vash
 Concept (Noun): command-A  'a person in authority says a command to someone'
 Verse: Esther 1:12 So those seven eunuchs went to Queen Vashti and told the king's command to her. But Queen Vashti refused to go to the king. Then King Xerxes became very angry <<because the queen didn't obey him>>. He was extremely angry.
  
-Concept (Verb): be-angry-A-A
-Verse: Esther 1:12 So those seven eunuchs went to Queen Vashti and told the king's command to her. But Queen Vashti refused to go to the king. Then King Xerxes became very angry <<because the queen didn't obey him>>. He was extremely angry.
- 
 Concept (Verb): know-C  'to know a bit of knowledge such as a person's name, the meaning of a word, etc. (Mary knew a secret.)'
 Verse: Esther 1:13 <<So King Xerxes wanted to punish Queen Vashti.>> In those days <<before the king punished a person,>> he always talked about the problem to men who knew the law well. So King Xerxes talked about Queen Vashti to some wise men who understood the law.
  
@@ -282,9 +280,6 @@ Verse: Esther 1:16 Then Memukan said to the king and the other wise nobles, "Que
 Concept (Verb): order-A  'to order someone to do something'
 Verse: Esther 1:17 All of the women <<who are living in this kingdom>> will hear about the things that Queen Vashti did. <<The women will hear that you ordered Queen Vashti to come to you. And the women will hear that Queen Vashti didn't come to you.>> Then those women won't obey their husbands. Those women will say,  
 Concept (Verb): write-F  'to write a law or command'
-Verse: Esther 1:19 Therefore, I suggest to you, the king, that you write a new decree. This new decree will be written for all of the people who are living in Media and Persia. No person will be able to change this new decree. This new decree will say that Queen Vashti must not come to you, King Xerxes, again. And you, the king, should choose another woman. That woman will become the queen. That woman will become a better queen than Queen Vashti.
- 
-Concept (Verb): be-able-B-A
 Verse: Esther 1:19 Therefore, I suggest to you, the king, that you write a new decree. This new decree will be written for all of the people who are living in Media and Persia. No person will be able to change this new decree. This new decree will say that Queen Vashti must not come to you, King Xerxes, again. And you, the king, should choose another woman. That woman will become the queen. That woman will become a better queen than Queen Vashti.
  
 Concept (Verb): change-D  'to change something so that it's different (e.g. They want to change the laws.)'
