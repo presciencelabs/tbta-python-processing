@@ -2,14 +2,14 @@ Gichuka Issues
  
 Current Passage: Esther 1:1 - Esther 1:22
  
-Concept (Noun): Xerxes-A  'the king in the book of Esther, some English translations use the name Ahasuerus'
+Concept (Noun): Xerxes-A  '(proper name) the king in the book of Esther, some English translations use the name Ahasuerus'
 Verse: Esther 1:1 Title: King Xerxes becomes angry with Queen Vashti. This book describes the things that happened during the time when Xerxes was the king. King Xerxes ruled the people who were living in 127 provinces. Those provinces were between India and Cush.
  
 Concept (Adjective): angry-B  'to be angry at someone (Mary is angry with John.)'
 Sample Sentence: Mary is angry with John.
 Verse: Esther 1:1 Title: King Xerxes becomes angry with Queen Vashti. This book describes the things that happened during the time when Xerxes was the king. King Xerxes ruled the people who were living in 127 provinces. Those provinces were between India and Cush.
  
-Concept (Noun): Vashti-A  'Queen Vashti, in Esther'
+Concept (Noun): Vashti-A  '(proper name) Queen Vashti, in Esther'
 Verse: Esther 1:1 Title: King Xerxes becomes angry with Queen Vashti. This book describes the things that happened during the time when Xerxes was the king. King Xerxes ruled the people who were living in 127 provinces. Those provinces were between India and Cush.
  
 Concept (Verb): describe-A  'to describe something to someone'
@@ -27,10 +27,10 @@ Verse: Esther 1:1 Title: King Xerxes becomes angry with Queen Vashti. This book 
 Concept (Noun): province-A  'a political entity, like a state'
 Verse: Esther 1:1 Title: King Xerxes becomes angry with Queen Vashti. This book describes the things that happened during the time when Xerxes was the king. King Xerxes ruled the people who were living in 127 provinces. Those provinces were between India and Cush.
  
-Concept (Noun): India-A  'the country, India'
+Concept (Noun): India-A  '(proper name) the country, India'
 Verse: Esther 1:1 Title: King Xerxes becomes angry with Queen Vashti. This book describes the things that happened during the time when Xerxes was the king. King Xerxes ruled the people who were living in 127 provinces. Those provinces were between India and Cush.
  
-Concept (Noun): Cush-A  'a country mentioned in Daniel 11:43'
+Concept (Noun): Cush-A  '(proper name) a country mentioned in Daniel 11:43'
 Verse: Esther 1:1 Title: King Xerxes becomes angry with Queen Vashti. This book describes the things that happened during the time when Xerxes was the king. King Xerxes ruled the people who were living in 127 provinces. Those provinces were between India and Cush.
  
 Concept (Conjunction): at-that-time-A  'at that minute'
@@ -42,7 +42,7 @@ Verse: Esther 1:2 At that time King Xerxes was living in his palace that was in 
 Concept (Noun): city-A  'a large town'
 Verse: Esther 1:2 At that time King Xerxes was living in his palace that was in a city named Susa.
  
-Concept (Noun): Susa-A  'captital city of King Xerxes, book of Esther'
+Concept (Noun): Susa-A  '(proper name) captital city of King Xerxes, book of Esther'
 Verse: Esther 1:2 At that time King Xerxes was living in his palace that was in a city named Susa.
  
 Concept (Verb): invite-A  'to invite someone to do something (The king invited many people to come to the palace.)'
@@ -54,10 +54,10 @@ Verse: Esther 1:3 During the third year when King Xerxes was the king, he invite
 Concept (Noun): official-A  'a governement official'
 Verse: Esther 1:3 During the third year when King Xerxes was the king, he invited all of the nobles and all of the officials to come to a feast. The leaders of the army of Persia, the leaders of the army of Media, the princes, and the nobles who were living in Xerxes' provinces came to that feast.
  
-Concept (Noun): Persia-A  'the country, Esther 10:2'
+Concept (Noun): Persia-A  '(proper name) the country, Esther 10:2'
 Verse: Esther 1:3 During the third year when King Xerxes was the king, he invited all of the nobles and all of the officials to come to a feast. The leaders of the army of Persia, the leaders of the army of Media, the princes, and the nobles who were living in Xerxes' provinces came to that feast.
  
-Concept (Noun): Media-A  'Esther 10:2'
+Concept (Noun): Media-A  '(proper name) Esther 10:2'
 Verse: Esther 1:3 During the third year when King Xerxes was the king, he invited all of the nobles and all of the officials to come to a feast. The leaders of the army of Persia, the leaders of the army of Media, the princes, and the nobles who were living in Xerxes' provinces came to that feast.
  
 Concept (Noun): prince-A  'complex - a king's son'
@@ -193,25 +193,25 @@ Verse: Esther 1:10 On the seventh day King Xerxes was very happy because he dran
 Concept (Verb): serve-A  'to work for  someone'
 Verse: Esther 1:10 On the seventh day King Xerxes was very happy because he drank a lot of wine. So he called the seven eunuchs who served him. <<Those seven eunuchs took care of Xerxes' wives.>> Those eunuchs' names were Mehuman, Biztha, Harbona, Bigtha, Abagtha, Zethar, and Carcas.
  
-Concept (Noun): Mehuman-A  'in Esther'
+Concept (Noun): Mehuman-A  '(proper name) in Esther'
 Verse: Esther 1:10 On the seventh day King Xerxes was very happy because he drank a lot of wine. So he called the seven eunuchs who served him. <<Those seven eunuchs took care of Xerxes' wives.>> Those eunuchs' names were Mehuman, Biztha, Harbona, Bigtha, Abagtha, Zethar, and Carcas.
  
-Concept (Noun): Biztha-A  'in Esther'
+Concept (Noun): Biztha-A  '(proper name) in Esther'
 Verse: Esther 1:10 On the seventh day King Xerxes was very happy because he drank a lot of wine. So he called the seven eunuchs who served him. <<Those seven eunuchs took care of Xerxes' wives.>> Those eunuchs' names were Mehuman, Biztha, Harbona, Bigtha, Abagtha, Zethar, and Carcas.
  
-Concept (Noun): Harbona-A  'in Esther'
+Concept (Noun): Harbona-A  '(proper name) in Esther'
 Verse: Esther 1:10 On the seventh day King Xerxes was very happy because he drank a lot of wine. So he called the seven eunuchs who served him. <<Those seven eunuchs took care of Xerxes' wives.>> Those eunuchs' names were Mehuman, Biztha, Harbona, Bigtha, Abagtha, Zethar, and Carcas.
  
-Concept (Noun): Bigtha-A  'in Esther'
+Concept (Noun): Bigtha-A  '(proper name) in Esther'
 Verse: Esther 1:10 On the seventh day King Xerxes was very happy because he drank a lot of wine. So he called the seven eunuchs who served him. <<Those seven eunuchs took care of Xerxes' wives.>> Those eunuchs' names were Mehuman, Biztha, Harbona, Bigtha, Abagtha, Zethar, and Carcas.
  
-Concept (Noun): Abagtha-A  'in Esther'
+Concept (Noun): Abagtha-A  '(proper name) in Esther'
 Verse: Esther 1:10 On the seventh day King Xerxes was very happy because he drank a lot of wine. So he called the seven eunuchs who served him. <<Those seven eunuchs took care of Xerxes' wives.>> Those eunuchs' names were Mehuman, Biztha, Harbona, Bigtha, Abagtha, Zethar, and Carcas.
  
-Concept (Noun): Zethar-A  'in Esther'
+Concept (Noun): Zethar-A  '(proper name) in Esther'
 Verse: Esther 1:10 On the seventh day King Xerxes was very happy because he drank a lot of wine. So he called the seven eunuchs who served him. <<Those seven eunuchs took care of Xerxes' wives.>> Those eunuchs' names were Mehuman, Biztha, Harbona, Bigtha, Abagtha, Zethar, and Carcas.
  
-Concept (Noun): Carcas-A  'in Esther'
+Concept (Noun): Carcas-A  '(proper name) in Esther'
 Verse: Esther 1:10 On the seventh day King Xerxes was very happy because he drank a lot of wine. So he called the seven eunuchs who served him. <<Those seven eunuchs took care of Xerxes' wives.>> Those eunuchs' names were Mehuman, Biztha, Harbona, Bigtha, Abagtha, Zethar, and Carcas.
  
 Concept (Verb): bring-B  'to have someone accompany someone else to someplace'
@@ -250,22 +250,22 @@ Verse: Esther 1:14 The king talked to those seven men often. Those wise men's na
 Concept (Noun): Karshena-A
 Verse: Esther 1:14 The king talked to those seven men often. Those wise men's names were Karshena, Shethar, Admatha, Tarshish, Meres, Marsena, and Memukan. Those seven wise nobles were from Persia and Media. Those men went to the king often. They were the most important officials in Xerxes' kingdom.
  
-Concept (Noun): Shethar-A  'in Esther'
+Concept (Noun): Shethar-A  '(proper name) in Esther'
 Verse: Esther 1:14 The king talked to those seven men often. Those wise men's names were Karshena, Shethar, Admatha, Tarshish, Meres, Marsena, and Memukan. Those seven wise nobles were from Persia and Media. Those men went to the king often. They were the most important officials in Xerxes' kingdom.
  
-Concept (Noun): Admatha-A  'in Esther'
+Concept (Noun): Admatha-A  '(proper name) in Esther'
 Verse: Esther 1:14 The king talked to those seven men often. Those wise men's names were Karshena, Shethar, Admatha, Tarshish, Meres, Marsena, and Memukan. Those seven wise nobles were from Persia and Media. Those men went to the king often. They were the most important officials in Xerxes' kingdom.
  
-Concept (Noun): Tarshish-A  'man in Esther'
+Concept (Noun): Tarshish-A  '(proper name) man in Esther'
 Verse: Esther 1:14 The king talked to those seven men often. Those wise men's names were Karshena, Shethar, Admatha, Tarshish, Meres, Marsena, and Memukan. Those seven wise nobles were from Persia and Media. Those men went to the king often. They were the most important officials in Xerxes' kingdom.
  
-Concept (Noun): Meres-A  'in Esther'
+Concept (Noun): Meres-A  '(proper name) in Esther'
 Verse: Esther 1:14 The king talked to those seven men often. Those wise men's names were Karshena, Shethar, Admatha, Tarshish, Meres, Marsena, and Memukan. Those seven wise nobles were from Persia and Media. Those men went to the king often. They were the most important officials in Xerxes' kingdom.
  
-Concept (Noun): Marsena-A  'in Esther'
+Concept (Noun): Marsena-A  '(proper name) in Esther'
 Verse: Esther 1:14 The king talked to those seven men often. Those wise men's names were Karshena, Shethar, Admatha, Tarshish, Meres, Marsena, and Memukan. Those seven wise nobles were from Persia and Media. Those men went to the king often. They were the most important officials in Xerxes' kingdom.
  
-Concept (Noun): Memukan-A  'in Esther'
+Concept (Noun): Memukan-A  '(proper name) in Esther'
 Verse: Esther 1:14 The king talked to those seven men often. Those wise men's names were Karshena, Shethar, Admatha, Tarshish, Meres, Marsena, and Memukan. Those seven wise nobles were from Persia and Media. Those men went to the king often. They were the most important officials in Xerxes' kingdom.
  
 Concept (Verb): say-D  'a book, law or command says something (indirect quote) (The law says that ...)'

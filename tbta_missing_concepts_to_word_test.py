@@ -24,10 +24,13 @@ class TestImportConcepts(unittest.TestCase):
         concepts = import_concepts(params)
 
         self.assertIn(CATEGORY_NOUN, concepts)
-        self.assertEqual(33, len(concepts[CATEGORY_NOUN]))
+        self.assertEqual(34, len(concepts[CATEGORY_NOUN]))
+
+        self.assertIn(CATEGORY_PROPER, concepts)
+        self.assertEqual(20, len(concepts[CATEGORY_PROPER]))
 
         self.assertIn(CATEGORY_VERB, concepts)
-        self.assertEqual(31, len(concepts[CATEGORY_VERB]))
+        self.assertEqual(29, len(concepts[CATEGORY_VERB]))
 
         self.assertNotIn(CATEGORY_PARTICLE, concepts)
 
@@ -43,10 +46,11 @@ class TestImportConcepts(unittest.TestCase):
         self.assertIsNotNone(concept)
         self.assertNotEqual('', concept[CONCEPT_GLOSS])
         self.assertNotIn(CONCEPT_SAMPLE, concept)
-        self.assertNotIn(CONCEPT_OCCURRENCES, concept)
+        self.assertIn(CONCEPT_OCCURRENCES, concept)
+        self.assertEqual(1, len(concept[CONCEPT_OCCURRENCES]))
 
         # missing gloss
-        concept = find_concept('Karshena-A', concepts[CATEGORY_PROPER])
+        concept = find_concept('Karshena-A', concepts[CATEGORY_NOUN])
         self.assertIsNotNone(concept)
         self.assertEqual('', concept[CONCEPT_GLOSS])
 

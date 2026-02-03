@@ -73,37 +73,27 @@ def import_concepts(params):
     GLOSS_REPLACE_REGEX = re.compile(r'\((LDV|simple|inexplicable|proper name|universal primitive)\) ')
     categories = {}
 
-    def add_concept_to_category(concept, category):
-        if category == CATEGORY_NOUN and concept[CONCEPT_WORD][0].isupper():
-            category = CATEGORY_PROPER
-        if category not in categories:
-            categories[category] = []
-        categories[category].append(concept)
-        return category
-
     path = params[PARAM_INPUT_PATH]
     with path.open() as f:
         concept = None
-        category = ''
         for line_num, line in enumerate(f):
             if line.startswith('Concept'):
                 concept_match = CONCEPT_REGEX.match(line)
                 if not concept_match:
                     print('Unexpected format for Concept on line ' + str(line_num))
                     continue
-
+                gloss = concept_match['gloss'] or ''
                 concept = {
                     CONCEPT_WORD: concept_match['word'],
-                    CONCEPT_GLOSS: GLOSS_REPLACE_REGEX.sub('', concept_match['gloss']) if concept_match['gloss'] else ''
+                    CONCEPT_GLOSS: GLOSS_REPLACE_REGEX.sub('', gloss)
                 }
-                category = add_concept_to_category(concept, concept_match['category'])
+                category = CATEGORY_PROPER if '(proper name)' in gloss else concept_match['category']
+                categories.setdefault(category, []).append(concept)
 
             elif line.startswith('Sample Sentence'):
                 concept[CONCEPT_SAMPLE] = line[len('Sample Sentence: '):].strip()
 
             elif line.startswith('Verse'):
-                if category == CATEGORY_PROPER:
-                    continue
                 verse_match = VERSE_REGEX.match(line)
                 concept[CONCEPT_VERSE_REF] = verse_match['ref']
                 concept[CONCEPT_VERSE_TEXT] = verse_match['text']
