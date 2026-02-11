@@ -2,6 +2,7 @@ from docx import Document
 from docx.enum.section import WD_ORIENT
 from docx.enum.text import WD_ALIGN_PARAGRAPH, WD_COLOR_INDEX
 from docx.shared import Cm, Pt, RGBColor
+import datetime
 
 
 def create_doc(landscape=False, my=None, mx=None):
@@ -23,6 +24,9 @@ def create_doc(landscape=False, my=None, mx=None):
         section.left_margin = Cm(mx)
         section.right_margin = Cm(mx)
     
+    doc.core_properties.author = 'TBTA'
+    doc.core_properties.created = datetime.datetime.today()
+    doc.core_properties.modified = datetime.datetime.today()
     return doc
 
 
