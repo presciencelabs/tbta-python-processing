@@ -206,6 +206,10 @@ if __name__ == "__main__":
         new_str = ','.join((f'{start}-{end}' for start, end in new_indices))
         full_str = f'{old_str};{new_str}'
 
-        print(full_str, flush=True)
+        try:
+            print(full_str, flush=True)
+        except OSError:
+            # This occurs if TBTA crashes or closes the pipe unexpectedly, so we should just exit the program
+            break
 
     sys.exit(0)
