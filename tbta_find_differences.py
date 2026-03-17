@@ -158,23 +158,16 @@ def find_differences(old: str, new: str, try_match_words: bool=False, separate_p
 
     old_tokens = split_tokens(old)
     new_tokens = split_tokens(new)
-    old_diff_start_token = 0
-    new_diff_start_token = 0
 
     if not old or not new:
         record_diff(old_tokens, new_tokens)
         return diffs
 
-    # Refer to https://docs.python.org/3/library/difflib.html#difflib.SequenceMatcher.get_matching_blocks
-    for (a, b, n) in difflib.SequenceMatcher(lambda x: x == ' ', old_tokens.as_str_list(), new_tokens.as_str_list()).get_matching_blocks():
-        old_diff = old_tokens[old_diff_start_token:a]
-        new_diff = new_tokens[new_diff_start_token:b]
-        old_diff_start_token = a + n
-        new_diff_start_token = b + n
-
-        if not len(old_diff) and not len(new_diff):
-            # Don't add an entry if neither text has a diff
-            continue
+    for (a_range, b_range) in get_diff_ranges(old_tokens, new_tokens):
+        a_start, a_end = a_range
+        b_start, b_end = b_range
+        old_diff = old_tokens[a_start:a_end]
+        new_diff = new_tokens[b_start:b_end]
 
         if separate_punctuation:
             old_diff, new_diff = handle_punctuation_change(old_diff, new_diff)
@@ -188,6 +181,107 @@ def find_differences(old: str, new: str, try_match_words: bool=False, separate_p
             record_diff(old_diff, new_diff)
 
     return diffs
+
+
+def get_diff_ranges(a: TextRange, b: TextRange):
+    """
+    Find minimal differences between two lists of strings using LCS (Longest Common Sequence).
+    Returns a list of ((start_a, end_a), (start_b, end_b)) tuples, representing ranges of differences in a and b.
+    For a deletion, start_b and end_b will be the same. For an insertion, start_a and end_a will be the same.
+    Spaces are ignored.
+    The meat of this function is courtesy of ChatGPT.
+    """
+
+    a_full = a.as_str_list()
+    b_full = b.as_str_list()
+
+    # Ignore spaces by removing them from the list, tracking the mapping of indices
+    a_index_map = []
+    norm_a = []
+    for i, t in enumerate(a_full):
+        if t == ' ':
+            continue
+        norm_a.append(t)
+        a_index_map.append(i)
+    a_index_map.append(len(a_full))
+
+    b_index_map = []
+    norm_b = []
+    for j, t in enumerate(b_full):
+        if t == ' ':
+            continue
+        norm_b.append(t)
+        b_index_map.append(j)
+    b_index_map.append(len(b_full))
+
+    len_a, len_b = len(norm_a), len(norm_b)
+
+    # Build LCS table
+    dp = [[0] * (len_b + 1) for _ in range(len_a + 1)]
+    for i in range(len_a):
+        for j in range(len_b):
+            if norm_a[i] == norm_b[j]:
+                dp[i + 1][j + 1] = dp[i][j] + 1
+            else:
+                dp[i + 1][j + 1] = max(dp[i][j + 1], dp[i + 1][j])
+
+    # Backtrack to find matching indices
+    i, j = len_a, len_b
+    matches = []
+    while i > 0 and j > 0:
+        if norm_a[i - 1] == norm_b[j - 1]:
+            matches.append((i - 1, j - 1))
+            i -= 1
+            j -= 1
+        elif dp[i - 1][j] >= dp[i][j - 1]:
+            i -= 1
+        else:
+            j -= 1
+    matches.reverse()  # from start to end
+
+    # Generate diff ranges
+    diffs = []
+    prev_a = prev_b = 0
+    for ma, mb in matches:
+        if prev_a < ma or prev_b < mb:
+            diffs.append(((prev_a, ma), (prev_b, mb)))
+        prev_a = ma + 1
+        prev_b = mb + 1
+
+    # Any remaining tail differences
+    if prev_a < len_a or prev_b < len_b:
+        diffs.append(((prev_a, len_a), (prev_b, len_b)))
+
+    # Adjust the indices back to include the space tokens as well
+    true_diffs = []
+    for a_range, b_range in diffs:
+        a_start, a_end = tuple(a_index_map[i] for i in a_range)
+        b_start, b_end = tuple(b_index_map[j] for j in b_range)
+
+        a_is_range = a_start != a_end
+        b_is_range = b_start != b_end
+
+        # Adjust for when a space should be included in a diff
+        a_prev_is_space = a_start > 0 and a_full[a_start-1] == ' '
+        b_prev_is_space = b_start > 0 and b_full[b_start-1] == ' '
+        if a_prev_is_space and not b_prev_is_space:
+            a_start -= 1
+            a_end -= 1 if not a_is_range else 0
+        elif not a_prev_is_space and b_prev_is_space:
+            b_start -= 1
+            b_end -= 1 if not b_is_range else 0
+
+        # At this point, any space at the beginning of a diff is meaningful
+
+        # Remove unnecessary spaces at the ends of insertions or deletions
+        if a_is_range and a_full[a_end-1] == ' ' and b_end < len(b_full) and not b_is_range and b_full[b_end] == ' ':
+            a_end -= 1
+        elif a_end < len(a_full) and not a_is_range and a_full[a_end] == ' ' and b_is_range and b_full[b_end-1] == ' ':
+            b_end -= 1
+
+        true_diffs.append(((a_start, a_end), (b_start, b_end)))
+
+    return true_diffs
 
 
 if __name__ == "__main__":

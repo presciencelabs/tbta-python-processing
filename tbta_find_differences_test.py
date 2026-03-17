@@ -38,7 +38,7 @@ class TestDiffAnalysis(unittest.TestCase):
             DiffData('bailmu->bisa', (23, 29), (23, 27)),
             DiffData('hal-hal->sual', (43, 50), (41, 45)),
             DiffData('hanyar->lalu', (86, 92), (81, 85)),
-            DiffData('tarus->', (103, 109), (96, 96)),
+            DiffData('tarus->', (104, 110), (97, 97)),
             DiffData('urang-urang->bubuhan', (145, 156), (132, 139)),
             DiffData('bailmu->bisa', (162, 168), (145, 149)),
             DiffData('->andakannya ada', (172, 172), (153, 168)),
@@ -52,7 +52,7 @@ class TestDiffAnalysis(unittest.TestCase):
             DiffData('bailmu->bisa', (23, 29), (23, 27)),
             DiffData('hal-hal->sual', (43, 50), (41, 45)),
             DiffData('hanyar->lalu', (86, 92), (81, 85)),
-            DiffData('tarus->', (103, 109), (96, 96)),
+            DiffData('tarus->', (104, 110), (97, 97)),
             DiffData('urang-urang->bubuhan', (145, 156), (132, 139)),
             DiffData('bailmu->bisa', (162, 168), (145, 149)),
             DiffData('->andakannya ada', (172, 172), (153, 168)),
@@ -63,7 +63,7 @@ class TestDiffAnalysis(unittest.TestCase):
             DiffData('dimana->wadah', (262, 268), (255, 260)),
             DiffData('nang->', (274, 279), (266, 266)),
             DiffData('itu->tu', (279, 282), (266, 268)),
-            DiffData('baada->', (282, 288), (268, 268)),
+            DiffData('baada->', (283, 289), (269, 269)),
         ]
         actual_simple = find_differences(old, new)
         actual_full = find_differences(old, new, try_match_words=True, separate_punctuation=True)
@@ -126,7 +126,7 @@ class TestDiffAnalysis(unittest.TestCase):
         expected_12_full = [
             DiffData('->Kadap', (35, 35), (35, 41)),
             DiffData('Manukupi->manukupi', (35, 43), (41, 49)),
-            DiffData('blah->', (43, 48), (49, 49)), # the underlying diff is actually ' blah->'
+            DiffData('blah->', (44, 49), (50, 50)), # the underlying diff is actually 'blah ->'
             DiffData('.->,', (65, 66), (66, 67)),
             DiffData('Lalu->lalu', (67, 71), (68, 72)),
             DiffData('Allah->', (82, 88), (83, 83)),
@@ -134,7 +134,7 @@ class TestDiffAnalysis(unittest.TestCase):
         expected_21_full = [
             DiffData('Kadap->', (35, 41), (35, 35)),
             DiffData('manukupi->Manukupi', (41, 49), (35, 43)),
-            DiffData('->blah', (49, 49), (43, 48)), # the underlying diff is actually '-> blah'
+            DiffData('->blah', (50, 50), (44, 49)), # the underlying diff is actually '->blah '
             DiffData(',->.', (66, 67), (65, 66)),
             DiffData('lalu->Lalu', (68, 72), (67, 71)),
             DiffData('->Allah', (83, 83), (82, 88)),
