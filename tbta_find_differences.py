@@ -1,6 +1,5 @@
 import sys
 import re
-import difflib
 from typing import NamedTuple
 
 class Indices(NamedTuple):
@@ -122,10 +121,9 @@ def find_differences(old: str, new: str, try_match_words: bool=False, separate_p
         for old_token_index, old_token in enumerate(old_diff.tokens):
             if old_token.text == ' ':
                 continue
-            # Refer to https://docs.python.org/3/library/difflib.html#difflib.get_close_matches
-            close_matches = difflib.get_close_matches(old_token.text, new_str_list, cutoff=0.8)
-            if len(close_matches):
-                new_token_index = new_str_list.index(close_matches[0])
+            closest = get_closest_match(old_token.text, new_str_list)
+            if closest:
+                new_token_index = new_str_list.index(closest)
                 old_matched_indices.append((old_token_index, old_token_index + 1))
                 new_matched_indices.append((new_token_index, new_token_index + 1))
 
@@ -183,13 +181,38 @@ def find_differences(old: str, new: str, try_match_words: bool=False, separate_p
     return diffs
 
 
+def get_closest_match(word, possibilities):
+    # Simplified version of difflib.get_close_matches()
+    # See https://github.com/python/cpython/blob/e0f7c1097e19b6f5c2399e19f283c9fb373c243f/Lib/difflib.py#L667
+    # and see https://github.com/python/cpython/blob/e0f7c1097e19b6f5c2399e19f283c9fb373c243f/Lib/difflib.py#L40
+    cutoff = 0.8
+    a, la = word, len(word)
+
+    close_matches = []
+    for b in possibilities:
+        if b == ' ':
+            continue
+
+        lb = len(b)
+        lboth = la + lb
+        if (2.0 * min(la, lb) / lboth) < cutoff:
+            continue
+
+        matches = find_overlaps(a, b)
+        ratio = 2.0 * len(matches) / lboth
+        if ratio >= cutoff:
+            close_matches.append((ratio, b))
+    
+    if not close_matches:
+        return None
+    return max(close_matches, key=lambda x: x[0])[1]
+
+
 def get_diff_ranges(a: TextRange, b: TextRange):
     """
-    Find minimal differences between two lists of strings using LCS (Longest Common Sequence).
-    Returns a list of ((start_a, end_a), (start_b, end_b)) tuples, representing ranges of differences in a and b.
+    Returns a list of ((start_a, end_a), (start_b, end_b)) tuples, representing the minimal ranges of differences in a and b.
     For a deletion, start_b and end_b will be the same. For an insertion, start_a and end_a will be the same.
     Spaces are ignored.
-    The meat of this function is courtesy of ChatGPT.
     """
 
     a_full = a.as_str_list()
@@ -214,30 +237,7 @@ def get_diff_ranges(a: TextRange, b: TextRange):
         b_index_map.append(j)
     b_index_map.append(len(b_full))
 
-    len_a, len_b = len(norm_a), len(norm_b)
-
-    # Build LCS table
-    dp = [[0] * (len_b + 1) for _ in range(len_a + 1)]
-    for i in range(len_a):
-        for j in range(len_b):
-            if norm_a[i] == norm_b[j]:
-                dp[i + 1][j + 1] = dp[i][j] + 1
-            else:
-                dp[i + 1][j + 1] = max(dp[i][j + 1], dp[i + 1][j])
-
-    # Backtrack to find matching indices
-    i, j = len_a, len_b
-    matches = []
-    while i > 0 and j > 0:
-        if norm_a[i - 1] == norm_b[j - 1]:
-            matches.append((i - 1, j - 1))
-            i -= 1
-            j -= 1
-        elif dp[i - 1][j] >= dp[i][j - 1]:
-            i -= 1
-        else:
-            j -= 1
-    matches.reverse()  # from start to end
+    matches = find_overlaps(norm_a, norm_b)
 
     # Generate diff ranges
     diffs = []
@@ -249,8 +249,8 @@ def get_diff_ranges(a: TextRange, b: TextRange):
         prev_b = mb + 1
 
     # Any remaining tail differences
-    if prev_a < len_a or prev_b < len_b:
-        diffs.append(((prev_a, len_a), (prev_b, len_b)))
+    if prev_a < len(norm_a) or prev_b < len(norm_b):
+        diffs.append(((prev_a, len(norm_a)), (prev_b, len(norm_b))))
 
     # Adjust the indices back to include the space tokens as well
     true_diffs = []
@@ -282,6 +282,38 @@ def get_diff_ranges(a: TextRange, b: TextRange):
         true_diffs.append(((a_start, a_end), (b_start, b_end)))
 
     return true_diffs
+
+def find_overlaps(a, b):
+    """
+    Find maximum overlap between two iterables using LCS (Longest Common Sequence).
+    This algorithm is courtesy of ChatGPT.
+    """
+    len_a, len_b = len(a), len(b)
+
+    # Build LCS table
+    dp = [[0] * (len_b + 1) for _ in range(len_a + 1)]
+    for i in range(len_a):
+        for j in range(len_b):
+            if a[i] == b[j]:
+                dp[i + 1][j + 1] = dp[i][j] + 1
+            else:
+                dp[i + 1][j + 1] = max(dp[i][j + 1], dp[i + 1][j])
+
+    # Backtrack to find matching indices
+    i, j = len_a, len_b
+    matches = []
+    while i > 0 and j > 0:
+        if a[i - 1] == b[j - 1]:
+            matches.append((i - 1, j - 1))
+            i -= 1
+            j -= 1
+        elif dp[i - 1][j] >= dp[i][j - 1]:
+            i -= 1
+        else:
+            j -= 1
+    matches.reverse()  # from start to end
+
+    return matches
 
 
 if __name__ == "__main__":
